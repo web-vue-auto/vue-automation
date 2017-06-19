@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>前端自动化开发框架</title>
+<meta name="description" content="前端,自动化,框架">
+<meta name="keywords" content="前端,自动化">
+<!-- 引入样式 -->
+<link rel="stylesheet" href="css/iview.css">
+<link rel="stylesheet/less" type="text/css" href="css/main.less" />
+<!-- 引入vue -->
+<script type="text/javascript" src="js/vue.min.js"></script>
+<script type="text/javascript" src="js/iview.min.js"></script>
+<script>
+  less = {
+    env: "development",
+    async: false,
+    fileAsync: false,
+    poll: 1000,
+    functions: {},
+    dumpLineNumbers: "comments",
+    relativeUrls: false,
+    rootpath: ":/a.com/"
+  };
+</script>
+<script type="text/javascript" src="js/less.min.js"></script>
+</head>
+<body>
+<div id="webapp">
+<div class="template_body app">
+    	<div class="template_head">
+    		<div class="pull-left"><img src="/image/company_logo.png" alt=""></div>
+    		<h3 class="pull-left">自动化搭建平台</h3>
+          <i-button type="primary" class="output" @click="output">点击生成页面</i-button>
+    	</div>
+    	<div class="template_main">
+    		<div class="template_main_left">
+    			<div width="200px" class="template_nav">
+    					<div>
+    						<ul>
+                  <li><Icon type="briefcase"></Icon><a href="javascript:;">模板主页</a></li>
+    							<li><Icon type="briefcase"></Icon><a href="javascript:;">系统创建</a></li>
+    							<li><Icon type="briefcase"></Icon><a href="javascript:;">区块创建</a></li>
+
+    						</ul>
+    					</div>
+    			</div>
+    		</div>
+    		<div class="template_main_right">
+    			<div class="template_content">
+    				<div class="template_content_main">

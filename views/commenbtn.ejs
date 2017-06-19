@@ -1,0 +1,15 @@
+<% for(var i=0; i< html.length; i++) { %>
+        <div class="border-box">
+          <%- html[i]%>
+          <div class="btn">
+            <!-- up -->
+            <img src="/image/up.png" alt="" @click="up(<%- i%>,'<%= id%>')">
+            <!-- down -->
+            <img src="/image/down.png" alt="" @click="down(<%- i%>,'<%= id%>')">
+            <!-- delete -->
+            <img src="/image/delete.png" alt="" @click="deleteArr(<%- i%>,'<%= id%>')">
+          </div>
+        </div>
+<% } %>
+<div class="combtn"><i-button @click="show('<%= id%>')">点击创建</i-button><div>
+<div class="ivu-date-picker" style="width: 200px;"><div class="ivu-date-picker-rel"><div class="ivu-input-wrapper ivu-input-type ivu-date-picker-editor"> <i class="ivu-icon ivu-icon-ios-calendar-outline ivu-input-icon ivu-input-icon-normal"></i> <!----> <input type="text" placeholder="选择日期" class="ivu-input"> </div></div> <div class="ivu-select-dropdown" style="display: none;"><div></div></div></div>

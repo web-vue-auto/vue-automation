@@ -1,0 +1,381 @@
+.fullpage {
+    background: #f7f7f7 url("/static/images/bg04.png");
+    border-top: solid 1px #fff;
+    padding: 5px 0 20px 0;
+    min-height: 1200px;
+    height: 100%;
+}
+
+.MenusAll {
+    position: absolute;
+    left: 90px;
+    margin-top: 10px;
+}
+
+.MenusAll button {
+    background: #ccc;
+    border: none;
+    width: 48px;
+    height: 45px;
+    text-indent: -900em;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    background: #5cadff;
+}
+
+.MenusAll button:after {
+    content: '';
+    position: absolute;
+    width: 68%;
+    height: 5px;
+    background: #fff;
+    top: 10px;
+    left: 16%;
+    box-shadow: 0 10px 0 #fff, 0 20px 0 #fff;
+}
+
+
+/* resouse导航 */
+
+.typeMenu {
+    margin-top: 3px;
+}
+
+.typeMenu ul {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    border: 0;
+    z-index: 10;
+}
+
+.typeMenu ul li {
+    margin: 0px 0px 0px 0px;
+    padding: 5px 0;
+    width: 120px;
+    display: block;
+    border-radius: 0px;
+    border: 0;
+    background: #5cadff;
+    cursor: pointer;
+}
+
+.typeMenu ul li:hover {
+    background: #39f;
+    cursor: pointer;
+}
+
+.typeMenu ul li a {
+    text-align: center;
+    width: 121px;
+    height: 40px;
+    line-height: 40px;
+    display: block;
+    font-size: 16px;
+    /*font-weight: bold;*/
+    text-decoration: none;
+    z-index: 10;
+    color: #fff;
+    cursor: pointer;
+}
+
+.weigthblod {
+    font-weight: bold;
+}
+
+.pageContent .pull-right {
+    float: right;
+}
+
+.pageContent .aStyle {
+    margin-right: 10px;
+    color: #999;
+}
+
+.pageContent .title {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 26px;
+    font-weight: bold;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+.pageContent .listpage {
+    position: absolute;
+    bottom: 0;
+    left: 30%;
+}
+
+.pageContent .listpage ul {
+    display: inline-block;
+}
+
+.pageContent .page2 p {
+    margin-bottom: 5px;
+}
+
+.pageContent .mar20 {
+    margin-right: 20px;
+}
+
+.pageContent .marR10 {
+    margin-right: 10px;
+}
+
+.pageContent .pad40 {
+    padding: 40px!important;
+}
+
+.pageContent .martop20 {
+    margin-top: 20px;
+    position: relative;
+}
+
+.pageContent .contenttip {
+    text-align: center;
+    display: block;
+    margin-top: 12px;
+}
+
+.menus .iconColor {
+    color: #999;
+    font-size: 18px;
+}
+
+.breadcrumbs {
+    z-index: -2
+}
+
+
+/* 搜索导航 */
+
+.w130 {
+    width: 130px !important;
+}
+
+.fullpage .menus {
+    width: 50%;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.fullpage .select {
+    float: left;
+    width: 20%;
+}
+
+.fullpage .searchInput {
+    width: 260px;
+    margin: 0 5px;
+}
+
+.fullpage .pull-left {
+    float: left;
+}
+
+.fullpage .pageContent {
+    width: 60%;
+    position: relative;
+    height: 100%;
+    margin: 10px auto;
+}
+
+.fullpage .pt-perspective {
+    width: 100%;
+    -webkit-perspective: 1200px;
+    -moz-perspective: 1200px;
+    perspective: 1200px;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+
+.fullpage .pt-page {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 1130px;
+    overflow: auto;
+    visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+
+.fullpage .pt-page-1>p {
+    color: #000;
+    display: block;
+    padding: 10px 20px 10px;
+    text-align: left;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.fullpage .pt-page-1>p a {
+    color: #657180
+}
+
+.fullpage .pt-page-1>p:hover {
+    box-shadow: 0px 0px 5px #3399ff;
+}
+
+.fullpage .pt-page-1>p:hover a {
+    color: #3399ff;
+}
+
+.fullpage .pt-page-current,
+.fullpage .no-js .pt-page {
+    visibility: visible;
+}
+
+.pt-page-1 {
+    background: #fff;
+}
+
+.pt-page-2 {
+    background: #fff;
+}
+
+
+/* 面包屑 */
+
+.breadcrumbs {
+    margin: 10px auto;
+    width: 60%;
+}
+
+
+/* 左右移动 */
+
+.pt-page-moveToLeft {
+    -webkit-animation: moveToLeft .6s ease both;
+    -moz-animation: moveToLeft .6s ease both;
+    animation: moveToLeft .6s ease both;
+}
+
+.pt-page-moveFromLeft {
+    -webkit-animation: moveFromLeft .6s ease both;
+    -moz-animation: moveFromLeft .6s ease both;
+    animation: moveFromLeft .6s ease both;
+}
+
+.pt-page-moveToRight {
+    -webkit-animation: moveToRight .6s ease both;
+    -moz-animation: moveToRight .6s ease both;
+    animation: moveToRight .6s ease both;
+}
+
+.pt-page-moveFromRight {
+    -webkit-animation: moveFromRight .6s ease both;
+    -moz-animation: moveFromRight .6s ease both;
+    animation: moveFromRight .6s ease both;
+}
+
+@-webkit-keyframes moveToLeft {
+    to {
+        -webkit-transform: translateX(-100%);
+    }
+}
+
+@-moz-keyframes moveToLeft {
+    to {
+        -moz-transform: translateX(-100%);
+    }
+}
+
+@keyframes moveToLeft {
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+@-webkit-keyframes moveFromLeft {
+    from {
+        -webkit-transform: translateX(-100%);
+    }
+}
+
+@-moz-keyframes moveFromLeft {
+    from {
+        -moz-transform: translateX(-100%);
+    }
+}
+
+@keyframes moveFromLeft {
+    from {
+        transform: translateX(-100%);
+    }
+}
+
+@-webkit-keyframes moveToRight {
+    to {
+        -webkit-transform: translateX(100%);
+    }
+}
+
+@-moz-keyframes moveToRight {
+    to {
+        -moz-transform: translateX(100%);
+    }
+}
+
+@keyframes moveToRight {
+    to {
+        transform: translateX(100%);
+    }
+}
+
+@-webkit-keyframes moveFromRight {
+    from {
+        -webkit-transform: translateX(100%);
+    }
+}
+
+@-moz-keyframes moveFromRight {
+    from {
+        -moz-transform: translateX(100%);
+    }
+}
+
+@keyframes moveFromRight {
+    from {
+        transform: translateX(100%);
+    }
+}
+
+
+/* 上下移动 */
+
+.moveFromBottom {
+    -webkit-animation: moveFromBottom .6s ease both;
+    -moz-animation: moveFromBottom .6s ease both;
+    animation: moveFromBottom .6s ease both;
+}
+
+@-webkit-keyframes moveFromBottom {
+    from {
+        -webkit-transform: translateY(100%);
+    }
+}
+
+@-moz-keyframes moveFromBottom {
+    from {
+        -moz-transform: translateY(100%);
+    }
+}
+
+@keyframes moveFromBottom {
+    from {
+        transform: translateY(100%);
+    }
+}

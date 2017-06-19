@@ -1,0 +1,22 @@
+<div>
+<Modal
+	v-model="modal"
+	title="模块列表"
+	@on-ok="ok">
+	<Radio-group v-model="animal">
+		<Radio :label="index" v-for="(item,index) in list" :key="item.id">
+		{{ item.title }}
+		</Radio>
+	</Radio-group>
+</Modal>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<!-- 实例化vuejs -->
+<script src="js/index.js"></script>
+</body>
+</html>
