@@ -20,11 +20,13 @@ npm run build --report
 
 ## 数据库说明
 
-``` bash
-# supervisor sql.js
-```
-## 自动化工具启动
+### 数据库： MySQL
+
+## middle层为node后台服务层
 
 ``` bash
-# supervisor index.js
+# node sql.js
+# 启动端口：3000
 ```
+
+## views层暂时废弃
