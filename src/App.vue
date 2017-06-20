@@ -87,7 +87,7 @@ export default {
             if (val) {
                 let token = localStorage.getItem("token");
                 this.$http.post("/api/getUserInfomation",{'token':token}).then((response)=>{
-                  if(response.data.data[0].imgUrl) {
+                  if(response.data.data[0].imgUrl && response.data.data[0].imgUrl != undefined) {
                       this.url = response.data.data[0].imgUrl;
                       this.usersexshow = false;
                   }else {

@@ -32,7 +32,7 @@ function scheduleCronstyle(){
     				// 循环插入数据数据
     				data.forEach(function (item) {
     					// 遍历插入
-    					connection.query("INSERT INTO VuePlatom.resouce (title, url) VALUES ('"+item.title+"', '"+item.url+"')", function(err, result) {
+    					connection.query("INSERT INTO "+connection.dev.call+".resouce (title, url) VALUES ('"+item.title+"', '"+item.url+"')", function(err, result) {
     						if (err) {
     							throw err;
     							return;
@@ -41,7 +41,7 @@ function scheduleCronstyle(){
     				})
 			});
     		}
-    }); 
+    });
 }
 
 
@@ -54,12 +54,12 @@ app.post('/api/resouceNewList', function(req, res){
 	var page = req.body.current;
 	var pageNum = (req.body.current -1)*20;
 	var pageTotal = '';
-	connection.query("select * from VuePlatom.resouce", function(err, result) {
+	connection.query("select * from "+connection.dev.call+".resouce", function(err, result) {
 		if (err) {
 			throw err;
 		}else {
 			 pageTotal = result.length;
-			 connection.query("select * from VuePlatom.resouce limit "+pageNum+",20", function(err, result) {
+			 connection.query("select * from "+connection.dev.call+".resouce limit "+pageNum+",20", function(err, result) {
 			 	if (err) {
 			 		throw err;
 			 	}else{
@@ -76,27 +76,27 @@ app.post('/api/resouceNewList', function(req, res){
 
 // 爬虫解析数组
 function getResouce (url,cb) {
-	http.get(url, function(sres) {  
-		var chunks = [];  
-		sres.on('data', function(chunk) {  
-			chunks.push(chunk);  
-		});  
-		// chunks里面存储着网页的 html 内容，将它转码传给 cheerio.load 之后  
-		// 就可以得到一个实现了 jQuery 接口的变量，将它命名为 `$`  
-		// 剩下就都是 jQuery 的内容了  
-		sres.on('end', function() {    
-			var resouce = [];  
-			//由于咱们发现此网页的编码格式为gb2312，所以需要对其进行转码，否则乱码    
-			//依据：“<meta http-equiv="Content-Type" content="text/html; charset=gb2312">”    
+	http.get(url, function(sres) {
+		var chunks = [];
+		sres.on('data', function(chunk) {
+			chunks.push(chunk);
+		});
+		// chunks里面存储着网页的 html 内容，将它转码传给 cheerio.load 之后
+		// 就可以得到一个实现了 jQuery 接口的变量，将它命名为 `$`
+		// 剩下就都是 jQuery 的内容了
+		sres.on('end', function() {
+			var resouce = [];
+			//由于咱们发现此网页的编码格式为gb2312，所以需要对其进行转码，否则乱码
+			//依据：“<meta http-equiv="Content-Type" content="text/html; charset=gb2312">”
 			var html = iconv.decode(Buffer.concat(chunks), 'utf-8');
 			var $ = cheerio.load(html, {decodeEntities: false});
-			$('.post_item h3 a').each(function (idx, element) {      
+			$('.post_item h3 a').each(function (idx, element) {
 				var $element = $(element);
-				resouce.push({        
+				resouce.push({
 					title: $element.text(),
 					url: $element.attr('href'),
 					time:$element.parents().find('.post_item_foot').text()
-				})    
+				})
 			})
 			return cb(resouce)
 		});

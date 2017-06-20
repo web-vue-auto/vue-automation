@@ -96,12 +96,12 @@ app.post('/api/newSystem', function(req, res){
     var name = req.body.name;
     var person = req.body.person;
     var sign = md5(name);
-    connection.query("select id from VuePlatom.comp_systerm where id = '"+sign+"'", function(err, result) {
+    connection.query("select id from "+connection.dev.call+".comp_systerm where id = '"+sign+"'", function(err, result) {
         if (result.length > 0) {
             // 数据存在
             return res.status(200).json({"type":false,"data":"创建失败！系统名称重复"});
         }else{
-            connection.query("INSERT INTO VuePlatom.comp_systerm (id, name, last_person) VALUES ('"+sign+"', '"+name+"','"+person+"')", function(err, result) {
+            connection.query("INSERT INTO "+connection.dev.call+".comp_systerm (id, name, last_person) VALUES ('"+sign+"', '"+name+"','"+person+"')", function(err, result) {
                 if (err) throw err;
                 else res.status(200).json({"type":true,"data":"系统创建成功！"});
             })
@@ -111,7 +111,7 @@ app.post('/api/newSystem', function(req, res){
 
 // 查询业务系统列表
 app.post('/api/getnewSystem', function(req, res){
-    connection.query("select * from VuePlatom.comp_systerm", function(err, result) {
+    connection.query("select * from "+connection.dev.call+".comp_systerm", function(err, result) {
         if (err) throw err;
         else res.status(200).json({"type":true,"data":result});
     })
@@ -120,7 +120,7 @@ app.post('/api/getnewSystem', function(req, res){
 // 删除业务系统
 app.post('/api/delnewSystem', function(req, res){
     var id = req.body.id;
-    connection.query("DELETE FROM VuePlatom.comp_systerm WHERE id='"+id+"'", function(err, result) {
+    connection.query("DELETE FROM "+connection.dev.call+".comp_systerm WHERE id='"+id+"'", function(err, result) {
         if (err) throw err;
         else res.status(200).json({"type":true,"data":"系统删除成功！"});
     })
@@ -134,9 +134,9 @@ app.post('/api/addblock', function(req, res){
     var title = req.body.title;
     var id = req.body.id;
     var sign = Date.parse(new Date());
-    var str = "UPDATE VuePlatom.block SET title='"+title+"',html_code='"+html+"',css_code='"+css+"',name='"+name+"' WHERE id='"+id+"'";
+    var str = "UPDATE "+connection.dev.call+".block SET title='"+title+"',html_code='"+html+"',css_code='"+css+"',name='"+name+"' WHERE id='"+id+"'";
     if (id == "") {
-        str = "INSERT INTO VuePlatom.block (id, name,html_code,css_code,title) VALUES ('"+sign+"', '"+name+"','"+html+"','"+css+"','"+title+"')";
+        str = "INSERT INTO "+connection.dev.call+".block (id, name,html_code,css_code,title) VALUES ('"+sign+"', '"+name+"','"+html+"','"+css+"','"+title+"')";
     }
     connection.query(str, function(err, result) {
         if (err) throw err;
@@ -147,7 +147,7 @@ app.post('/api/addblock', function(req, res){
 // 系统区块查询
 app.post('/api/searchblock', function(req, res){
     var id = req.body.id;
-    connection.query("SELECT id, name,cast(html_code as char) as html_code,cast(css_code as char) as css_code,title FROM VuePlatom.block WHERE id = '"+id+"' ", function(err, result) {
+    connection.query("SELECT id, name,cast(html_code as char) as html_code,cast(css_code as char) as css_code,title FROM "+connection.dev.call+".block WHERE id = '"+id+"' ", function(err, result) {
         if (err) throw err;
         else res.status(200).json({"type":true,"data":result});
     })
@@ -156,7 +156,7 @@ app.post('/api/searchblock', function(req, res){
 // 删除区块
 app.post('/api/delblock', function(req, res){
     var id = req.body.id;
-    connection.query("DELETE FROM VuePlatom.block WHERE id='"+id+"'", function(err, result) {
+    connection.query("DELETE FROM "+connection.dev.call+".block WHERE id='"+id+"'", function(err, result) {
         if (err) throw err;
         else res.status(200).json({"type":true,"data":"删除成功！"});
     })
@@ -164,7 +164,7 @@ app.post('/api/delblock', function(req, res){
 
 // 区块下拉查询
 app.post('/api/blockListDrop', function(req, res){
-    connection.query("select id,title from VuePlatom.block", function(err, res0) {
+    connection.query("select id,title from "+connection.dev.call+".block", function(err, res0) {
         if (err) throw err;
         else return res.status(200).json({"type":"success","data":res0});
     })
@@ -176,7 +176,7 @@ app.post('/api/blockList', function(req, res){
     var pageNum = (req.body.current -1)*10;
     var current = req.body.current
     var pageTotal = '';
-    var str = "select id,name,title from VuePlatom.block where title like '%"+searchValue+"%'";
+    var str = "select id,name,title from "+connection.dev.call+".block where title like '%"+searchValue+"%'";
     connection.query(str, function(err, result) {
         if (err) {
                 throw err;
@@ -205,10 +205,10 @@ app.post('/api/templateAdd', function(req, res){
     var css = req.body.css;
     var id = req.body.id;
     var sign = Date.parse(new Date());
-    var str = "INSERT INTO VuePlatom.template (id, title,css_code,html_code,author) VALUES ('"+sign+"', '"+title+"','"+css+"','"+html+"','"+author+"')";
+    var str = "INSERT INTO "+connection.dev.call+".template (id, title,css_code,html_code,author) VALUES ('"+sign+"', '"+title+"','"+css+"','"+html+"','"+author+"')";
     // 区分新增编辑
     if (id) {
-        str = "UPDATE VuePlatom.template SET title = '"+title+"',css_code = '"+css+"',html_code = '"+html+"',author = '"+author+"' WHERE id ='"+id+"'";
+        str = "UPDATE "+connection.dev.call+".template SET title = '"+title+"',css_code = '"+css+"',html_code = '"+html+"',author = '"+author+"' WHERE id ='"+id+"'";
     }
     connection.query(str, function(err, result) {
         if (err) throw err;
@@ -220,7 +220,7 @@ app.post('/api/templateAdd', function(req, res){
 // 模块详情
 app.post('/api/templateDetails', function(req, res){
     var id = req.body.id;
-    connection.query("select id, title,cast(css_code as char) as css_code,cast(html_code as char) as html_code,author from VuePlatom.template where id = '"+id+"'", function(err, result) {
+    connection.query("select id, title,cast(css_code as char) as css_code,cast(html_code as char) as html_code,author from "+connection.dev.call+".template where id = '"+id+"'", function(err, result) {
         if (err) throw err;
         else return res.status(200).json({"type":"success","data":result})
     })
@@ -230,7 +230,7 @@ app.post('/api/templateDetails', function(req, res){
 // 模块详情
 app.post('/api/templateDelete', function(req, res){
     var id = req.body.id;
-    connection.query("DELETE FROM VuePlatom.template WHERE id='"+id+"'", function(err, result) {
+    connection.query("DELETE FROM "+connection.dev.call+".template WHERE id='"+id+"'", function(err, result) {
         if (err) throw err;
         else return res.status(200).json({"type":"success","data":"删除成功！"})
     })
@@ -238,7 +238,7 @@ app.post('/api/templateDelete', function(req, res){
 
 //模块列表下拉列表
 app.post('/api/templateListDrop', function(req, res){
-    connection.query("select id, title,cast(css_code as char) as css_code,cast(html_code as char) as html_code,author from VuePlatom.template", function(err, result) {
+    connection.query("select id, title,cast(css_code as char) as css_code,cast(html_code as char) as html_code,author from "+connection.dev.call+".template", function(err, result) {
         if (err) {
                 throw err;
                 return res.status(200).json({"type":"error","data":"服务端报错！"});
@@ -276,7 +276,7 @@ app.post('/api/templateList', function(req, res){
     var pageNum = (req.body.current -1)*9;
     var current = req.body.current
     var pageTotal = '';
-    connection.query("select * from VuePlatom.template", function(err, result) {
+    connection.query("select * from "+connection.dev.call+".template", function(err, result) {
         // 过滤提炼出数组
         if (err) {
                 throw err;
@@ -292,7 +292,7 @@ app.post('/api/templateList', function(req, res){
         }
     });
 
-    connection.query("select id, title,cast(css_code as char) as css_code,cast(html_code as char) as html_code,author from VuePlatom.template order by id desc limit "+pageNum+",9", function(err,   result) {
+    connection.query("select id, title,cast(css_code as char) as css_code,cast(html_code as char) as html_code,author from "+connection.dev.call+".template order by id desc limit "+pageNum+",9", function(err,   result) {
         // 过滤提炼出数组
         if (err) {
                 throw err;
@@ -320,7 +320,7 @@ app.post('/api/searchTemplateList', function(req, res){
     var pageNum = (req.body.current -1)*9;
     var current = req.body.current
     var pageTotal = '';
-    var str = "select id, title,cast(css_code as char) as css_code,cast(html_code as char) as html_code,author from VuePlatom.template where title like '%"+searchValue+"%' ";
+    var str = "select id, title,cast(css_code as char) as css_code,cast(html_code as char) as html_code,author from "+connection.dev.call+".template where title like '%"+searchValue+"%' ";
     connection.query(str, function(err, result) {
         if (err) {
                 throw err;

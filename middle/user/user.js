@@ -14,16 +14,17 @@ function md5(data) {
 	return crypto.createHash('md5').update(data).digest('hex').toUpperCase();
 }
 
+console.log(connection.dev.call);
 
 // 检验账号是否存在
 app.post('/api/checkIdCard', function(req, res){
 	var name = req.body.name;
-	connection.query("select id from VuePlatom.user", function(err, result) {
+	connection.query("select id from "+connection.dev.call+".user", function(err, result) {
 	    // 过滤提炼出数组
 	    if (err) {
 	    		throw err;
-	     }else {	
-	     		//捕获异常 
+	     }else {
+	     		//捕获异常
 	     		try {
 	     			var bol = result.some(function(item) {return item.id === name});
 		    		// 开始校验
@@ -35,7 +36,7 @@ app.post('/api/checkIdCard', function(req, res){
 	     		}
 	     		catch (e) {
 	     			console.log(e);
-	     		}   		
+	     		}
 	    }
 	});
 });
@@ -47,7 +48,7 @@ app.post('/api/addUserIdCard', function(req, res){
 	// MD5加密处理
 	var sign = md5(name);
 	try {
-		connection.query("insert into VuePlatom.user (id,password,token) values('"+name+"','"+password+"','"+sign+"')", function(err, result) {
+		connection.query("insert into "+connection.dev.call+".user (id,password,token) values('"+name+"','"+password+"','"+sign+"')", function(err, result) {
 		    if (err) {
 		    	throw err;
 		    	return res.status(200).json({"type":"true","data":"创建失败！"});
@@ -66,7 +67,7 @@ app.post('/api/UserLogin', function(req, res){
 	var name = req.body.name;
 	var password = req.body.password;
 	var token = "";
-     connection.query("select * from VuePlatom.user", function(err, result) {
+     connection.query("select * from "+connection.dev.call+".user", function(err, result) {
 	    if (err) {
 	    		throw err;
 	    }else {
@@ -74,7 +75,7 @@ app.post('/api/UserLogin', function(req, res){
 	    			// 待修改
 		    		var bol = result.some(function(item) {return item.id === name});
 		    		if (bol) {
-		    			connection.query("select id,password,token from VuePlatom.user where id='"+name+"'", function(err, resp) {
+		    			connection.query("select id,password,token from "+connection.dev.call+".user where id='"+name+"'", function(err, resp) {
 		    				if (err) {
 		    					throw err;
 		    				}else{
@@ -104,7 +105,7 @@ app.post('/api/UserLogin', function(req, res){
 // 获取用户个人信息
 app.post('/api/getUserInfomation', function(req, res){
 	var token = req.body.token;
-	connection.query("select id,imgUrl,email,local_id from VuePlatom.user where token='"+token+"'", function(err, result) {
+	connection.query("select id,imgUrl,email,local_id from "+connection.dev.call+".user where token='"+token+"'", function(err, result) {
 		if (err) {
 			throw err;
 		}else{
@@ -123,12 +124,12 @@ app.post('/api/getUserChecknum', function(req, res){
 	// email
 	var email = req.body.email;
 	var newPassword = req.body.newPassword;
-	connection.query("select id,password from VuePlatom.user where token='"+token+"'", function(err, result) {
+	connection.query("select id,password from "+connection.dev.call+".user where token='"+token+"'", function(err, result) {
 		if (err) {
 			throw err;
 		}else{
 			if (password == result[0].password) {
-				connection.query("UPDATE VuePlatom.user SET email='"+email+"',local_id='"+mlocal+"',password='"+newPassword+"' WHERE token='"+token+"'", function(err, result) {
+				connection.query("UPDATE "+connection.dev.call+".user SET email='"+email+"',local_id='"+mlocal+"',password='"+newPassword+"' WHERE token='"+token+"'", function(err, result) {
 					return res.status(200).json({"type":"success","data":"个人信息修改成功！"});
 				})
 			}else{

@@ -15,8 +15,8 @@ app.post('/api/getUser', function(req, res){
 	var pageNum = (req.body.current -1)*10;
 	var pageTotal="";
 	//分类sql查询
-	var str_ = "select id,token,permissions from VuePlatom.user where 1=1 "
-	var str = "select id,token,permissions from VuePlatom.user where 1=1 "
+	var str_ = "select id,token,permissions from "+connection.dev.call+".user where 1=1 "
+	var str = "select id,token,permissions from "+connection.dev.call+".user where 1=1 "
 	if (search != "")  str_ += " and id like '%"+search+"%'";
 
 	// 查询总数
@@ -25,14 +25,14 @@ app.post('/api/getUser', function(req, res){
 	    if (err) {
 	    		throw err;
 	    		return res.status(200).json({"type":"error","data":"服务端报错！"});
-	     }else {	
-	     		//捕获异常 
+	     }else {
+	     		//捕获异常
 	     		try {
 	     			pageTotal = result.length;
 	     		}
 	     		catch (e) {
 	     			console.log(e);
-	     		}   		
+	     		}
 	    }
 	});
 
@@ -47,14 +47,14 @@ app.post('/api/getUser', function(req, res){
 	    if (err) {
 	    		throw err;
 	    		return res.status(200).json({"type":"error","data":"搜索失败！"});
-	     }else {	
-	     		//捕获异常 
+	     }else {
+	     		//捕获异常
 	     		try {
 	     			res.status(200).json({"type":"success","data":result,"total":pageTotal});
 	     		}
 	     		catch (e) {
 	     			console.log(e);
-	     		}   		
+	     		}
 	    }
 	});
 });
@@ -68,19 +68,19 @@ app.post('/api/saveUser', function(req, res){
 	var arrToken = token.split(",");
 	// 循环查询方法
 	function queryTypedo(value) {
-		connection.query("update VuePlatom.user set permissions = '"+type+"' where token='"+value+"'", function(err, result) {
+		connection.query("update "+connection.dev.call+".user set permissions = '"+type+"' where token='"+value+"'", function(err, result) {
 		    // 过滤提炼出数组
 		    if (err) {
 		    		throw err;
 		    		return res.status(200).json({"type":"error","data":"保存失败！"});
-		     }else {	
-		     		//捕获异常 
+		     }else {
+		     		//捕获异常
 		     		try {
 		     			res.status(200).json({"type":"success","data":"权限分配成功！"});
 		     		}
 		     		catch (e) {
 		     			console.log(e);
-		     		}   		
+		     		}
 		    }
 		});
 	};

@@ -24,7 +24,7 @@ app.post('/api/searchManagementList', function(req, res){
 	var pageNum = (req.body.current -1)*10;
 	var current = req.body.current
 	var pageTotal = '';
-	var str = "select Date,Auther,type,Title,id,cast(content as char) as content from VuePlatom.ManageList where Title like '%"+searchValue+"%' or Auther like '%"+searchValue+"%' ";
+	var str = "select Date,Auther,type,Title,id,cast(content as char) as content from "+connection.dev.call+".ManageList where Title like '%"+searchValue+"%' or Auther like '%"+searchValue+"%' ";
 	connection.query(str, function(err, result) {
 		if (err) {
 	    		throw err;
@@ -47,33 +47,33 @@ app.post('/api/searchManagementList', function(req, res){
 
 // 管理列表页查询
 app.post('/api/ManagementList', function(req, res){
-	
+
 	var pageNum = (req.body.current -1)*10;
 	var current = req.body.current
 	var pageTotal = '';
-	connection.query("select * from VuePlatom.ManageList", function(err, result) {
+	connection.query("select * from "+connection.dev.call+".ManageList", function(err, result) {
 	    // 过滤提炼出数组
 	    if (err) {
 	    		throw err;
 	    		return res.status(200).json({"type":"error","data":"服务端报错！"});
-	     }else {	
-	     		//捕获异常 
+	     }else {
+	     		//捕获异常
 	     		try {
 	     			pageTotal = result.length;
 	     		}
 	     		catch (e) {
 	     			console.log(e);
-	     		}   		
+	     		}
 	    }
 	});
 
-	connection.query("select Date,Auther,type,Title,id,cast(content as char) as content from VuePlatom.ManageList order by Date desc limit "+pageNum+",10", function(err, 	result) {
+	connection.query("select Date,Auther,type,Title,id,cast(content as char) as content from "+connection.dev.call+".ManageList order by Date desc limit "+pageNum+",10", function(err, 	result) {
 	    // 过滤提炼出数组
 	    if (err) {
 	    		throw err;
 	    		return res.status(200).json({"type":"error","data":"服务端报错！"});
-	     }else {	
-	     		//捕获异常 
+	     }else {
+	     		//捕获异常
 	     		try {
 	     			res.status(200).json({
 	     				data:result,
@@ -83,41 +83,41 @@ app.post('/api/ManagementList', function(req, res){
 	     		}
 	     		catch (e) {
 	     			console.log(e);
-	     		}   		
+	     		}
 	    }
 	});
 });
 
 // 管理列表新增
 app.post('/api/ManagementAdd', function(req, res){
-	// MD5加密处理	
+	// MD5加密处理
 	var time = dataTime();
 	// 前端入参
 	var title = req.body.title;
 	// 以时间戳作为唯一标识
 	var sign = Date.parse(new Date());
 
-	var auther = req.body.autherId;	
+	var auther = req.body.autherId;
 	var content = req.body.content.replace(/[\\"']/g,'\\$&');
 
 	// 通过用户id查询用户名
-	connection.query("select * from VuePlatom.user where token = '"+auther+"'", function(err, result) {
+	connection.query("select * from "+connection.dev.call+".user where token = '"+auther+"'", function(err, result) {
 	    if (err) {
 	    		throw err;
 	    		return res.status(200).json({"type":"error","data":"服务端报错！"});
 	    }else {
 	    		// 插入内容
-	    		return connection.query("insert into VuePlatom.ManageList (Date,auther,title,id,content) values('"+time+"','"+result[0].id+"','"+title+"','"+sign+"','"+content+"')", function(err, result) {
+	    		return connection.query("insert into "+connection.dev.call+".ManageList (Date,auther,title,id,content) values('"+time+"','"+result[0].id+"','"+title+"','"+sign+"','"+content+"')", function(err, result) {
 			    // 过滤提炼出数组
 			    if (err) {
 			    		throw err;
 			    		return res.status(200).json({"type":"error","data":"服务端报错！"});
-			     }else {	
-			     		//捕获异常 
+			     }else {
+			     		//捕获异常
 			     		try {
 			     			var str = [];
 						// 群发邮件
-						connection.query("select id,email from VuePlatom.user",function (err,res_) {
+						connection.query("select id,email from "+connection.dev.call+".user",function (err,res_) {
 							res_.forEach( function(item, index) {
 								if (!!item.email) {
 									str.push(item.email);
@@ -132,7 +132,7 @@ app.post('/api/ManagementAdd', function(req, res){
 			     		}
 			     		catch (e) {
 			     			console.log(e);
-			     		}   		
+			     		}
 			    }
 			});
 	    }
@@ -141,34 +141,34 @@ app.post('/api/ManagementAdd', function(req, res){
 
 // 管理列表编辑
 app.post('/api/ManagementUpdate', function(req, res){
-	// MD5加密处理	
+	// MD5加密处理
 	var time = dataTime();
 	// 前端入参
 	var title = req.body.title;
 	var sign = req.body.id;
-	var auther = req.body.autherId;	
-	var content = req.body.content.replace(/[\\"']/g,'\\$&');	
-	
+	var auther = req.body.autherId;
+	var content = req.body.content.replace(/[\\"']/g,'\\$&');
+
 	// 通过用户id查询用户名
-	connection.query("select * from VuePlatom.user where token = '"+auther+"'", function(err, result) {
+	connection.query("select * from "+connection.dev.call+".user where token = '"+auther+"'", function(err, result) {
 	    if (err) {
 	    		throw err;
 	    		return res.status(200).json({"type":"error","data":"服务端报错！"});
 	    }else {
 	    		// 通过文章id更新对应的文章
-	    		return connection.query("UPDATE VuePlatom.ManageList SET date='"+time+"',Auther='"+result[0].id+"',title='"+title+"',id='"+sign+"',content='"+content+"' where id='"+sign+"'", function(err, result) {
+	    		return connection.query("UPDATE "+connection.dev.call+".ManageList SET date='"+time+"',Auther='"+result[0].id+"',title='"+title+"',id='"+sign+"',content='"+content+"' where id='"+sign+"'", function(err, result) {
 			    // 过滤提炼出数组
 			    if (err) {
 			    		throw err;
 			    		return res.status(200).json({"type":"error","data":"服务端报错！"});
-			     }else {	
-			     		//捕获异常 
+			     }else {
+			     		//捕获异常
 			     		try {
 			     			res.status(200).json({"type":"success","data":"更新成功！"});
 			     		}
 			     		catch (e) {
 			     			console.log(e);
-			     		}   		
+			     		}
 			    }
 			});
 	    }
@@ -180,7 +180,7 @@ app.post('/api/ManagementReplay', function(req, res){
 	// 反显查询id
 	var sign = req.body.id;
 	// 通过用户id查询用户名
-	connection.query("select Date,Auther,Title,id,cast(content as char) as content from VuePlatom.ManageList where id = '"+sign+"'", function(err, result) {
+	connection.query("select Date,Auther,Title,id,cast(content as char) as content from "+connection.dev.call+".ManageList where id = '"+sign+"'", function(err, result) {
 	    if (err) {
 	    		throw err;
 	    		return res.status(200).json({"type":"error","data":"服务端报错！"});
@@ -190,7 +190,7 @@ app.post('/api/ManagementReplay', function(req, res){
 	     		}
 	     		catch (e) {
 	     			console.log(e);
-	     		}   		
+	     		}
 	    }
 	});
 });
@@ -200,7 +200,7 @@ app.post('/api/ManagementDelete', function(req, res){
 	// 反显查询id
 	var sign = req.body.id;
 	// 通过用户id查询用户名
-	connection.query("delete from VuePlatom.ManageList where id = '"+sign+"'", function(err, result) {
+	connection.query("delete from "+connection.dev.call+".ManageList where id = '"+sign+"'", function(err, result) {
 	    if (err) {
 	    		throw err;
 	    		return res.status(200).json({"type":"error","data":"服务端报错！"});
@@ -210,7 +210,7 @@ app.post('/api/ManagementDelete', function(req, res){
 	     		}
 	     		catch (e) {
 	     			console.log(e);
-	     		}   		
+	     		}
 	    }
 	});
 });

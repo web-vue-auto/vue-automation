@@ -4,7 +4,7 @@
  */
 var express = require('express');
 // 文件上传插件
-var multipart = require('connect-multiparty'); 
+var multipart = require('connect-multiparty');
 var fs = require('fs');
 var multipartMiddleware = multipart();
 var connection = require('../config.js');
@@ -15,7 +15,7 @@ app.use(multipart({uploadDir:'../static/upload' }));
 // 单图上传
 app.post('/api/headUpload',multipartMiddleware, function(req, res, next){
 	var token = req.body.token;
-	connection.query("update VuePlatom.user set imgUrl='"+req.files.files.path+"',imgName='"+req.files.files.name+"' where token='"+req.body.token+"'", function(err, result) {
+	connection.query("update "+connection.dev.call+".user set imgUrl='"+req.files.files.path+"',imgName='"+req.files.files.name+"' where token='"+req.body.token+"'", function(err, result) {
 		if (err) throw err;
 		else return res.status(200).json({"type":"success","data":{
 			imageUrl:req.files.files.path
@@ -39,7 +39,7 @@ app.post('/api/fileUploadSave',function(req, res, next){
 	var auther = req.body.auther;
 	var sign = Date.parse(new Date());
 	var time = dataTime();
-	connection.query("INSERT INTO VuePlatom.ManageList (Date,Auther,Title,id,content,type) VALUES ('"+time+"','"+auther+"','"+title+"','"+sign+"','"+contArr.url+"','"+contArr.type+"')", function(err, result) {
+	connection.query("INSERT INTO "+connection.dev.call+".ManageList (Date,Auther,Title,id,content,type) VALUES ('"+time+"','"+auther+"','"+title+"','"+sign+"','"+contArr.url+"','"+contArr.type+"')", function(err, result) {
 		if (err) {
 			throw err;
 		}else{
@@ -63,7 +63,7 @@ app.post('/api/imgUpload',multipartMiddleware, function(req, res, next){
 			type:req.files.wangEditorH5File.type
 		}});
 	}
-	
+
 });
 
 module.exports = app;
