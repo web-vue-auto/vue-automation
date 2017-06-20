@@ -20,7 +20,7 @@ npm run build --report
 
 ## 数据库说明
 
-### 数据库： MySQL
+> 数据库： MySQL
 
 ## middle层为node后台服务层
 
