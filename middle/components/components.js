@@ -17,10 +17,14 @@ var http = require("http"),
     app = express();
 
 // 截取方法
-const SUB = (str, content) => {
-  var a = str.substring(0, content.length-2);
-  var b = str.substring(content.length-2);
-  return `${a},${content}${b} `;
+const SUB = (str, content, start , end, start2, end2 , bol) => {
+  var a = str.substring(start, end);
+  var b = str.substring(start2, end2);
+  if (bol) {
+    return `${a},${content}${b} `;
+  }else {
+      return `${a}${content}${b} `;
+  }
 };
 const createFolder = (to) => { //文件写入
     var sep = path.sep;
@@ -39,6 +43,19 @@ var crypto = require('crypto');
 function md5(data) {
     return crypto.createHash('md5').update(data).digest('hex').toUpperCase();
 }
+
+
+// fs.readFile(`/user/maqun/Desktop/yichedai/src/routes.js`,(err,buffer) => {
+//   var str = buffer.toString();
+//   var a = `import demo from 'components/demo';`;
+//   var b = `{
+//       path: '/demo',
+//           component: demo
+//       }`;
+//   endStr = SUB(str, b , 0 , str.length-3, str.length-3, str.length,true);
+//   endStr = SUB(endStr, a , 0 , 0, 0, str.length,false);
+//   console.log(endStr,"=====");
+// });
 
 
 // 拷贝文件接口
@@ -79,27 +96,25 @@ app.post('/api/copyFile', function(req, res){
           return;
       }
       var buf = new Buffer(template.data());
-      console.log(fd);
       fs.write(fd,buf,0,buf.length,0);
     });
 
     // 写入路由
     fs.readFile(`/user/maqun/Desktop/${objname}/src/routes.js`,(err,buffer) => {
-      console.log(buffer);
       var str = buffer.toString();
       var a = `import ${name} from 'components/${name}';`;
       var b = `{
       		path: '/${name}',
               component: ${name}
           }`;
-      endStr = SUB(str, b);
-      endStr = SUB(str, a);
+      endStr = SUB(str, b , 0 , str.length-3, str.length-3, str.length,true);
+      endStr = SUB(endStr, a , 0 , 0, 0, str.length,false);
+      //写入路由信息
+      fs.writeFile(`/user/maqun/Desktop/${objname}/src/routes.js`, new Buffer(endStr), {flag: 'r+', encoding: 'utf8'},  (err, data) => {
+        if (err) throw err;
+      });
+    });
 
-    });
-    //写入路由信息
-    fs.writeFile(`/user/maqun/Desktop/${objname}/src/routes.js`, new Buffer(endStr), {flag: 'r+', encoding: 'utf8'},  (err, data) => {
-      if (err) throw err;
-    });
   };
     // end
 });
@@ -279,7 +294,7 @@ app.post('/api/templateCreate', (req, res)=> {
     // 读取数据
     fs.readFile('../src/components/components/demo.vue', function (err, data) {
       if (err) return res.status(200).json({status:false,data:err});
-      console.log(data.toString());
+      //console.log(data.toString());
     });
     // fs.writeFile('../src/components/components/contents/combtn.vue', '<template><Date-picker type="date" placeholder="选择日期" style="width: 200px"></Date-picker><button class="combtn">选择</button></template>',  (err)=> {
     //    if (err) {
