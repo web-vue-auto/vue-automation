@@ -17,17 +17,45 @@ var http = require("http"),
     app = express();
 
 // 截取方法
-const SUB = (str, content) => {
-  var a = str.substring(0, content.length-2);
-  var b = str.substring(content.length-2);
-  return `${a},${content}${b} `;
-}
+const SUB = (str, content, start , end, start2, end2 , bol) => {
+  var a = str.substring(start, end);
+  var b = str.substring(start2, end2);
+  if (bol) {
+    return `${a},${content}${b} `;
+  }else {
+      return `${a}${content}${b} `;
+  }
+};
+const createFolder = (to) => { //文件写入
+    var sep = path.sep;
+    var folders = path.dirname(to).split(sep);
+    var p = '';
+    while (folders.length) {
+        p += folders.shift() + sep;
+        if (!fs.existsSync(p)) {
+            fs.mkdirSync(p);
+        }
+    }
+};
 // MD5 加密组件
 var crypto = require('crypto');
 // MD5编码
 function md5(data) {
     return crypto.createHash('md5').update(data).digest('hex').toUpperCase();
 }
+
+
+// fs.readFile(`/user/maqun/Desktop/yichedai/src/routes.js`,(err,buffer) => {
+//   var str = buffer.toString();
+//   var a = `import demo from 'components/demo';`;
+//   var b = `{
+//       path: '/demo',
+//           component: demo
+//       }`;
+//   endStr = SUB(str, b , 0 , str.length-3, str.length-3, str.length,true);
+//   endStr = SUB(endStr, a , 0 , 0, 0, str.length,false);
+//   console.log(endStr,"=====");
+// });
 
 
 // 拷贝文件接口
@@ -49,10 +77,18 @@ app.post('/api/copyFile', function(req, res){
     var write = () => {
       // 写入配置
       fs.writeFile(`/user/maqun/Desktop/${objname}/config/index.js`, new Buffer(config.process(ip,ssd,root)), {flag: 'r+', encoding: 'utf8'},  (err, data) => {
-        if (err) throw err;
-        else res.status(200).json({"type":true,"data":`项目创建成功，启动端口号为: ${ssd}`});
+        if (err) {
+          throw err
+        }else {
+          // 写入文件
+          writeFile();
+          return res.status(200).json({"type":true,"data":`项目创建成功，启动端口号为: ${ssd}`});
+        }
       });
     };
+
+    var writeFile = () => {
+
     // 创建文件   process(buffer)
     fs.open(`/user/maqun/Desktop/${objname}/src/components/${name}.vue`,"w+",(err,fd) => {
       if(err!==null){
@@ -60,27 +96,28 @@ app.post('/api/copyFile', function(req, res){
           return;
       }
       var buf = new Buffer(template.data());
-      console.log(fd);
       fs.write(fd,buf,0,buf.length,0);
-    })
+    });
 
-    // // 写入路由
-    // fs.readFile(`/user/maqun/Desktop/yizhengdai/src/routes.js`,(err,buffer) => {
-    //   var str = buffer.toString();
-    //   var a = `import ${name} from 'components/${name}';`;
-    //   var b = `{
-    //   		path: '/${name}',
-    //           component: ${name}
-    //       }`;
-    //   endStr = SUB(str, b);
-    //   endStr = SUB(str, a);
-    //
-    // })
-    // //写入路由信息
-    // fs.writeFile(`/user/maqun/Desktop/${objname}/src/routes.js`, new Buffer(endStr), {flag: 'r+', encoding: 'utf8'},  (err, data) => {
-    //   if (err) throw err;
-    // });
-})
+    // 写入路由
+    fs.readFile(`/user/maqun/Desktop/${objname}/src/routes.js`,(err,buffer) => {
+      var str = buffer.toString();
+      var a = `import ${name} from 'components/${name}';`;
+      var b = `{
+      		path: '/${name}',
+              component: ${name}
+          }`;
+      endStr = SUB(str, b , 0 , str.length-3, str.length-3, str.length,true);
+      endStr = SUB(endStr, a , 0 , 0, 0, str.length,false);
+      //写入路由信息
+      fs.writeFile(`/user/maqun/Desktop/${objname}/src/routes.js`, new Buffer(endStr), {flag: 'r+', encoding: 'utf8'},  (err, data) => {
+        if (err) throw err;
+      });
+    });
+
+  };
+    // end
+});
 
 //  preview 项目
 app.post('/api/gopreview', function(req, res){
@@ -257,7 +294,7 @@ app.post('/api/templateCreate', (req, res)=> {
     // 读取数据
     fs.readFile('../src/components/components/demo.vue', function (err, data) {
       if (err) return res.status(200).json({status:false,data:err});
-      console.log(data.toString());
+      //console.log(data.toString());
     });
     // fs.writeFile('../src/components/components/contents/combtn.vue', '<template><Date-picker type="date" placeholder="选择日期" style="width: 200px"></Date-picker><button class="combtn">选择</button></template>',  (err)=> {
     //    if (err) {
