@@ -38,12 +38,12 @@
 				<el-menu-item index="messagetable">文章列表</el-menu-item>	
 			</el-submenu>
 		</el-menu>
-		<el-menu default-active="6" class="el-menu-vertical-demo" router>
+		<!-- <el-menu default-active="6" class="el-menu-vertical-demo" router>
 			<el-submenu index="6">
 				<template slot="title"><i class="el-icon-menu"></i>发布任务</template>
 				<el-menu-item index="taskannouncement">任务</el-menu-item>	
 			</el-submenu>
-		</el-menu>
+		</el-menu> -->
 	</Permissbutton>
 </i-col>
 <!-- 侧栏 -->

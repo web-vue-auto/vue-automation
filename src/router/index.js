@@ -44,6 +44,9 @@ import bbswork from '../components/bbs/bbs_work'
 import bbsworkdetails from '../components/bbs/bbs_work_details'
 import bbslife from '../components/bbs/bbs_life'
 import bbslifedetails from '../components/bbs/bbs_life_details'
+//review
+import review from "../components/review/review.vue"
+
 //module
 import module from '../components/module/module'
 //permission
@@ -253,6 +256,11 @@ export default new Router({
       path: '/vuecli',
       name: 'vuecli',
       component: vuecli
+    },
+     {
+      path: '/review',
+      name: 'review',
+      component: review
     },
     // {
     //   path: '/step1',

@@ -47,11 +47,17 @@
 						content : "相信我们-会给你最好的服务",
 						rout:'cdn'
 					},
-					{
+					/*{
 						imgUrl : "/static/images/Untitled6.jpg",
 						title : "task",
 						content : "你-就是我们要找的赏金猎人",
 						rout:'taskwelcome'
+					},*/
+					{
+						imgUrl : "/static/images/Untitled6.jpg",
+						title : "reviews",
+						content : "严谨，整洁就是你的代名词",
+						rout:'review'
 					},
 					{
 						imgUrl : "/static/images/Untitled7.jpg",
