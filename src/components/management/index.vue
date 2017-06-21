@@ -8,7 +8,7 @@
 		<el-menu default-active="1" class="el-menu-vertical-demo" unique-opened router v-if="adminShow.user">
 			<el-submenu index="1">
 				<template slot="title"><i class="el-icon-message"></i>用户中心</template>
-				<el-menu-item index="user">权限配置</el-menu-item>	
+				<el-menu-item index="user">权限配置</el-menu-item>
 			</el-submenu>
 		</el-menu>
 		<!-- 2 -->
@@ -35,13 +35,13 @@
 		<el-menu default-active="5" class="el-menu-vertical-demo" router v-if="adminShow.messagetable">
 			<el-submenu index="5">
 				<template slot="title"><i class="el-icon-message"></i>Vue原创</template>
-				<el-menu-item index="messagetable">文章列表</el-menu-item>	
+				<el-menu-item index="messagetable">文章列表</el-menu-item>
 			</el-submenu>
 		</el-menu>
 		<el-menu default-active="6" class="el-menu-vertical-demo" router>
 			<el-submenu index="6">
 				<template slot="title"><i class="el-icon-menu"></i>发布任务</template>
-				<el-menu-item index="taskannouncement">任务</el-menu-item>	
+				<el-menu-item index="taskannouncement">任务</el-menu-item>
 			</el-submenu>
 		</el-menu>
 	</Permissbutton>
