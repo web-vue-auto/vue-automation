@@ -64,18 +64,18 @@ app.post('/api/copyFile', function(req, res){
     // 写入文件   process(buffer)
     var write = () => {
       // 写入配置
-      fs.writeFile(`/user/maqun/Desktop/${objname}/config/index.js`, new Buffer(config.process(ip,ssd,root)), {flag: 'r+', encoding: 'utf8'},  (err, data) => {
+      fs.writeFile(`/user/maqun/Desktop/${objname}/config/index.js`, new Buffer(config.process(ip,ssd,root)),  (err, data) => {
         if (err) {
           throw err
         }else {
           // 写入文件
-          writeFile();
+          writeFileload();
           return res.status(200).json({"type":true,"data":`项目创建成功，启动端口号为: ${ssd}`});
         }
       });
     };
 
-    var writeFile = () => {
+    var writeFileload = () => {
 
     // 创建文件   process(buffer)
     fs.open(`/user/maqun/Desktop/${objname}/src/components/${name}.vue`,"w+",(err,fd) => {
