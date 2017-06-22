@@ -62,11 +62,49 @@
                         key: 'action',
                         width: 180,
                         align: 'center',
-                        render (row, column, index) {
-                        	if(row.type != null){
-                        		return `<i-button type="error" size="small" class="borderNone" @click="ManagementDelete(${index})">删除</i-button>`;
+                        render: (h, params) => {
+                        	if(params.row.type != null){
+                        		return h('div', [              
+	                                h('Button', {
+	                                    props: {
+	                                        type: 'error',
+	                                        size: 'small'
+	                                    },
+	                                    on: {
+	                                        click: () => {
+	                                           this.ManagementDelete(params.index)
+	                                        }
+	                                    }
+	                                }, '删除')
+                           		]);
                         	}else{
-                        		return `<i-button type="primary" class="borderNone"  size="small" @click="show(${index})">编辑</i-button>     <i-button type="error" size="small" class="borderNone" @click="ManagementDelete(${index})">删除</i-button>`;
+                        		return h('div', [
+	                                h('Button', {
+	                                    props: {
+	                                        type: 'primary',
+	                                        size: 'small'
+	                                    },
+	                                    style: {
+	                                        marginRight: '5px'
+	                                    },
+	                                    on: {
+	                                        click: () => {
+	                                            this.show(params.index)
+	                                        }
+	                                    }
+	                                }, '查看'),
+		                            h('Button', {
+		                                    props: {
+		                                        type: 'error',
+		                                        size: 'small'
+		                                    },
+		                                    on: {
+		                                        click: () => {
+		                                            this.ManagementDelete(params.index)
+		                                        }
+		                                    }
+		                                }, '删除')
+	                            ]);
                         	}
                             
                         }
@@ -119,7 +157,7 @@
 				    this.total = _data.total;			
 				})
 		    }    
-		},
+		},	
 		mounted: function () {
 			this.readyTable();  
 		}

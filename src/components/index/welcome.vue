@@ -39,7 +39,7 @@
 	font-size: 30px;
 }
 .welpage {
-	text-align: center;
+	text-align: center;	
 }
 @-webkit-keyframes rotate-animation {
 	0% {

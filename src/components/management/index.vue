@@ -1,5 +1,5 @@
 <template>
-<div class="clearfix">
+<div class="clearfix menupage">
 <Row type="flex">
 <i-col span="4">
 <!-- 导航 -->
@@ -53,6 +53,11 @@
 </Row>
 </div>
 </template>
+<style class="scoped">
+	.menupage{
+		margin-top: 70px;
+	}
+</style>
 <script>
 // 权限标签
 import Permissbutton from "./common/Permissbutton";

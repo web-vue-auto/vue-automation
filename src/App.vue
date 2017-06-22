@@ -2,7 +2,7 @@
   <div id="app">
 
   <!-- Header Starts -->
-      <div class="navbar navbar-default navbar-fixed-top maxh70" role="navigation" id="top-nav">
+    <div class="navbar navbar-default navbar-fixed-top maxh70" role="navigation" id="top-nav">
         <div class="container">
           <div class="navbar-header">
             <!-- Logo Starts -->
@@ -43,9 +43,9 @@
           <!-- #Nav Ends -->
 
         </div>
-      </div>
+    </div>
   <!-- #Header Starts -->
-  <router-view></router-view>
+    <router-view></router-view>
   <!-- Footer Starts -->
     <div class="footer text-center spacer">
     <p class="wowload flipInX"><a href="#"><i class="fa fa-facebook fa-2x"></i></a> <a href="#"><i class="fa fa-instagram fa-2x"></i></a> <a href="#"><i class="fa fa-twitter fa-2x"></i></a> <a href="#"><i class="fa fa-flickr fa-2x"></i></a> </p>
@@ -136,7 +136,7 @@ export default {
 }
 .maxh70 {
   height: 70px !important;
-  background: #347dff;
+  background: #F7F7F7;
 }
 .user {
   width: 280px;
@@ -177,11 +177,12 @@ export default {
   margin-left: 10px;
 }
 .Username b {
-  color: #fff;
-  font-weight: bold;
+  color: #39f;
+  font-weight: normal;
+  font-size:14px;
 }
 .Username span {
-  color: #fff;
+  color: #39f;
   cursor: pointer;
   font-size: 14px;
 }
@@ -193,7 +194,7 @@ export default {
   text-decoration: none;
 }
 .pad8 h2 {
-  color: #fff;
+  color: #39f;
   font-size: 32px;
   font-weight: bold;
   line-height: 54px;
