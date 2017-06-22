@@ -45,18 +45,6 @@ function md5(data) {
 }
 
 
-// fs.readFile(`/user/maqun/Desktop/yichedai/src/routes.js`,(err,buffer) => {
-//   var str = buffer.toString();
-//   var a = `import demo from 'components/demo';`;
-//   var b = `{
-//       path: '/demo',
-//           component: demo
-//       }`;
-//   endStr = SUB(str, b , 0 , str.length-3, str.length-3, str.length,true);
-//   endStr = SUB(endStr, a , 0 , 0, 0, str.length,false);
-//   console.log(endStr,"=====");
-// });
-
 
 // 拷贝文件接口
 app.post('/api/copyFile', function(req, res){
@@ -107,8 +95,10 @@ app.post('/api/copyFile', function(req, res){
       		path: '/${name}',
               component: ${name}
           }`;
+
       endStr = SUB(str, b , 0 , str.length-3, str.length-3, str.length,true);
-      endStr = SUB(endStr, a , 0 , 0, 0, str.length,false);
+      endStr = SUB(endStr,a ,0,0,0, endStr.length,false);
+
       //写入路由信息
       fs.writeFile(`/user/maqun/Desktop/${objname}/src/routes.js`, new Buffer(endStr), {flag: 'r+', encoding: 'utf8'},  (err, data) => {
         if (err) throw err;
