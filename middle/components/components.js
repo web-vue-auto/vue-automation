@@ -224,147 +224,126 @@ app.post('/api/blockList', function(req, res){
 })
 
 
-// 模块新增
-app.post('/api/templateAdd', function(req, res){
-    var html = req.body.html.replace(/[\\"']/g,'\\$&');
-    var title = req.body.title;
-    var author = req.body.author;
-    var css = req.body.css;
-    var id = req.body.id;
-    var sign = Date.parse(new Date());
-    var str = "INSERT INTO "+connection.dev.call+".template (id, title,css_code,html_code,author) VALUES ('"+sign+"', '"+title+"','"+css+"','"+html+"','"+author+"')";
-    // 区分新增编辑
-    if (id) {
-        str = "UPDATE "+connection.dev.call+".template SET title = '"+title+"',css_code = '"+css+"',html_code = '"+html+"',author = '"+author+"' WHERE id ='"+id+"'";
-    }
-    connection.query(str, function(err, result) {
-        if (err) throw err;
-        else return res.status(200).json({"type":"success","data":"模块更新成功！"})
-    })
-})
-
-
-// 模块详情
-app.post('/api/templateDetails', function(req, res){
-    var id = req.body.id;
-    connection.query("select id, title,cast(css_code as char) as css_code,cast(html_code as char) as html_code,author from "+connection.dev.call+".template where id = '"+id+"'", function(err, result) {
-        if (err) throw err;
-        else return res.status(200).json({"type":"success","data":result})
-    })
-})
-
-
-// 模块详情
-app.post('/api/templateDelete', function(req, res){
-    var id = req.body.id;
-    connection.query("DELETE FROM "+connection.dev.call+".template WHERE id='"+id+"'", function(err, result) {
-        if (err) throw err;
-        else return res.status(200).json({"type":"success","data":"删除成功！"})
-    })
-})
-
-//模块列表下拉列表
-app.post('/api/templateListDrop', function(req, res){
-    connection.query("select id, title,cast(css_code as char) as css_code,cast(html_code as char) as html_code,author from "+connection.dev.call+".template", function(err, result) {
-        if (err) {
-                throw err;
-                return res.status(200).json({"type":"error","data":"服务端报错！"});
-         }else {
-               return  res.status(200).json({data:result});
-        }
-    })
-})
-
-
-// 动态创建文件
-app.post('/api/templateCreate', (req, res)=> {
-    var buf = new Buffer(99999);
-
-    console.log("准备打开已存在的文件！");
-    // 读取数据
-    fs.readFile('../src/components/components/demo.vue', function (err, data) {
-      if (err) return res.status(200).json({status:false,data:err});
-      //console.log(data.toString());
-    });
-    // fs.writeFile('../src/components/components/contents/combtn.vue', '<template><Date-picker type="date" placeholder="选择日期" style="width: 200px"></Date-picker><button class="combtn">选择</button></template>',  (err)=> {
-    //    if (err) {
-    //        return console.error(err);
-    //    }
-    //    console.log("数据写入成功！");
-    //    console.log("--------我是分割线-------------")
-    //    console.log("读取写入的数据！");
-    // });
-})
+// // 模块新增
+// app.post('/api/templateAdd', function(req, res){
+//     var html = req.body.html.replace(/[\\"']/g,'\\$&');
+//     var title = req.body.title;
+//     var author = req.body.author;
+//     var css = req.body.css;
+//     var id = req.body.id;
+//     var sign = Date.parse(new Date());
+//     var str = "INSERT INTO "+connection.dev.call+".template (id, title,css_code,html_code,author) VALUES ('"+sign+"', '"+title+"','"+css+"','"+html+"','"+author+"')";
+//     // 区分新增编辑
+//     if (id) {
+//         str = "UPDATE "+connection.dev.call+".template SET title = '"+title+"',css_code = '"+css+"',html_code = '"+html+"',author = '"+author+"' WHERE id ='"+id+"'";
+//     }
+//     connection.query(str, function(err, result) {
+//         if (err) throw err;
+//         else return res.status(200).json({"type":"success","data":"模块更新成功！"})
+//     })
+// })
+//
+//
+// // 模块详情
+// app.post('/api/templateDetails', function(req, res){
+//     var id = req.body.id;
+//     connection.query("select id, title,cast(css_code as char) as css_code,cast(html_code as char) as html_code,author from "+connection.dev.call+".template where id = '"+id+"'", function(err, result) {
+//         if (err) throw err;
+//         else return res.status(200).json({"type":"success","data":result})
+//     })
+// })
+//
+//
+// // 模块详情
+// app.post('/api/templateDelete', function(req, res){
+//     var id = req.body.id;
+//     connection.query("DELETE FROM "+connection.dev.call+".template WHERE id='"+id+"'", function(err, result) {
+//         if (err) throw err;
+//         else return res.status(200).json({"type":"success","data":"删除成功！"})
+//     })
+// })
+//
+// //模块列表下拉列表
+// app.post('/api/templateListDrop', function(req, res){
+//     connection.query("select id, title,cast(css_code as char) as css_code,cast(html_code as char) as html_code,author from "+connection.dev.call+".template", function(err, result) {
+//         if (err) {
+//                 throw err;
+//                 return res.status(200).json({"type":"error","data":"服务端报错！"});
+//          }else {
+//                return  res.status(200).json({data:result});
+//         }
+//     })
+// })
 
 
 // 模块列表页查询
-app.post('/api/templateList', function(req, res){
-
-    var pageNum = (req.body.current -1)*9;
-    var current = req.body.current
-    var pageTotal = '';
-    connection.query("select * from "+connection.dev.call+".template", function(err, result) {
-        // 过滤提炼出数组
-        if (err) {
-                throw err;
-                return res.status(200).json({"type":"error","data":"服务端报错！"});
-         }else {
-                //捕获异常
-                try {
-                    pageTotal = result.length;
-                }
-                catch (e) {
-                    console.log(e);
-                }
-        }
-    });
-
-    connection.query("select id, title,cast(css_code as char) as css_code,cast(html_code as char) as html_code,author from "+connection.dev.call+".template order by id desc limit "+pageNum+",9", function(err,   result) {
-        // 过滤提炼出数组
-        if (err) {
-                throw err;
-                return res.status(200).json({"type":"error","data":"服务端报错！"});
-         }else {
-                //捕获异常
-                try {
-                    res.status(200).json({
-                        data:result,
-                        total:pageTotal,
-                        current:current
-                    });
-                }
-                catch (e) {
-                    console.log(e);
-                }
-        }
-    });
-});
+// app.post('/api/templateList', function(req, res){
+//
+//     var pageNum = (req.body.current -1)*9;
+//     var current = req.body.current
+//     var pageTotal = '';
+//     connection.query("select * from "+connection.dev.call+".template", function(err, result) {
+//         // 过滤提炼出数组
+//         if (err) {
+//                 throw err;
+//                 return res.status(200).json({"type":"error","data":"服务端报错！"});
+//          }else {
+//                 //捕获异常
+//                 try {
+//                     pageTotal = result.length;
+//                 }
+//                 catch (e) {
+//                     console.log(e);
+//                 }
+//         }
+//     });
+//
+//     connection.query("select id, title,cast(css_code as char) as css_code,cast(html_code as char) as html_code,author from "+connection.dev.call+".template order by id desc limit "+pageNum+",9", function(err,   result) {
+//         // 过滤提炼出数组
+//         if (err) {
+//                 throw err;
+//                 return res.status(200).json({"type":"error","data":"服务端报错！"});
+//          }else {
+//                 //捕获异常
+//                 try {
+//                     res.status(200).json({
+//                         data:result,
+//                         total:pageTotal,
+//                         current:current
+//                     });
+//                 }
+//                 catch (e) {
+//                     console.log(e);
+//                 }
+//         }
+//     });
+// });
 
 
 // 模块条件查询
-app.post('/api/searchTemplateList', function(req, res){
-    var searchValue = req.body.search;
-    var pageNum = (req.body.current -1)*9;
-    var current = req.body.current
-    var pageTotal = '';
-    var str = "select id, title,cast(css_code as char) as css_code,cast(html_code as char) as html_code,author from "+connection.dev.call+".template where title like '%"+searchValue+"%' ";
-    connection.query(str, function(err, result) {
-        if (err) {
-                throw err;
-                return res.status(200).json({"type":"error","data":"服务端报错！"});
-         }else{
-                pageTotal = result.length;
-                str += "limit "+pageNum+",9";
-                connection.query(str, function(err, res0) {
-                    if (err) throw err;
-                    else return res.status(200).json({"type":"success","data":{
-                        data:res0,
-                        total:pageTotal,
-                        current:current
-                    }});
-                })
-         }
-    })
-})
+// app.post('/api/searchTemplateList', function(req, res){
+//     var searchValue = req.body.search;
+//     var pageNum = (req.body.current -1)*9;
+//     var current = req.body.current
+//     var pageTotal = '';
+//     var str = "select id, title,cast(css_code as char) as css_code,cast(html_code as char) as html_code,author from "+connection.dev.call+".template where title like '%"+searchValue+"%' ";
+//     connection.query(str, function(err, result) {
+//         if (err) {
+//                 throw err;
+//                 return res.status(200).json({"type":"error","data":"服务端报错！"});
+//          }else{
+//                 pageTotal = result.length;
+//                 str += "limit "+pageNum+",9";
+//                 connection.query(str, function(err, res0) {
+//                     if (err) throw err;
+//                     else return res.status(200).json({"type":"success","data":{
+//                         data:res0,
+//                         total:pageTotal,
+//                         current:current
+//                     }});
+//                 })
+//          }
+//     })
+// })
 
  module.exports = app;
