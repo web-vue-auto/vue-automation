@@ -1,6 +1,8 @@
 <template>
 	<div>
-		<div v-html="html"></div>
+		<div v-for="item in html" :key="item">
+			<div v-html="item"></div>
+		</div>
 		 <Button type="ghost" class="combtn" @click="start">选择</Button>
 		 <Modal
 		        v-model="modal"
@@ -14,7 +16,7 @@
 		 </Modal>
 	</div>
 </template>
-<style>
+<style scoped>
 .combtn {
 	width: 100%;
 }
@@ -24,15 +26,15 @@
 		name:"combtn",
 		data () {
 			return {
-				modal : false,
+				modal: false,
 				animal: 0,
 				list: [],
-				html:""
+				html: []
 			}
 		},
 		methods: {
 			ok () {
-				this.$set(this.$data, "html", this.list[this.animal].template_code);
+				this.html.push( this.list[this.animal].template_code );
 			},
 			start () {
 				this.modal = !this.modal;
