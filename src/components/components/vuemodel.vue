@@ -23,7 +23,7 @@
 			<div class="vuemodel_content">
 				<div class="vuemodel_content_main">
 					<!-- 内容 -->
-					<combtn></combtn>
+					<combtn @code = "code"></combtn>
 					 <Modal
 		                v-model="modal_"
 		                title="区块创建"
@@ -198,14 +198,16 @@ export default {
                   mode: 'text/html',
                   theme: 'monokai'
                 },
-                editorOption: {
-                  tabSize: 4,
-                  styleActiveLine: true,
-                  line: true,
-                  mode: 'text/html',
-                  lineWrapping: true,
-                  theme: 'monokai'
-                }
+            editorOption: {
+              tabSize: 4,
+              styleActiveLine: true,
+              line: true,
+              mode: 'text/html',
+              lineWrapping: true,
+              theme: 'monokai'
+            },
+            template_code:'',
+            html_code:''
 	 	}
 	 }, 
 	 methods: {
@@ -252,25 +254,30 @@ export default {
 	            this.list = res.data.data;
 	        })
         },
+        code(template,html){
+        	this.template_code = template;
+        	this.html_code = html;
+        },
         //保存模板
         saveTemplate(){
-        	let self = this; 		 
+        	let self = this; 	
             this.$http.post("/api/creatTemplate",{
                 author: this.$store.getters.username,
                 name : this.$route.query.name,
                 proname: this.$route.query.objname,//项目名称
                 sysname: this.$route.query.sys,//系统名称
-                template_code: this.htmlcode,//源码
-                html_code:this.htmlcode2,
+                template_code: this.template_code,//源码
+                html_code:this.html_code,
             }).then((res)=>{
-                this.$Modal.success({
+                /*this.$Modal.success({
                     title: "提示",
                     content: res.data.data,
                     onOk: ()=>{
                         self.modal_ = !self.modal_;  
                         self.getList();                   
                     }
-                });
+                });*/
+                console.log(res.data.data)
             })
         }
 	},

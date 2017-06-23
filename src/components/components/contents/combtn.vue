@@ -29,12 +29,15 @@
 				modal: false,
 				animal: 0,
 				list: [],
-				html: []
+				html: [],
+				template: []
 			}
 		},
 		methods: {
 			ok () {
 				this.html.push( this.list[this.animal].template_code );
+				this.template.push( this.list[this.animal].html_code );
+				this.$emit('code',this.template,this.html)
 			},
 			start () {
 				this.modal = !this.modal;
