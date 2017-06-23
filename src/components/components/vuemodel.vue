@@ -254,7 +254,24 @@ export default {
         },
         //保存模板
         saveTemplate(){
-        	
+        	let self = this; 		 
+            this.$http.post("/api/creatTemplate",{
+                author: this.$store.getters.username,
+                name : this.$route.query.name,
+                proname: this.$route.query.objname,//项目名称
+                sysname: this.$route.query.sys,//系统名称
+                template_code: this.htmlcode,//源码
+                html_code:this.htmlcode2,
+            }).then((res)=>{
+                this.$Modal.success({
+                    title: "提示",
+                    content: res.data.data,
+                    onOk: ()=>{
+                        self.modal_ = !self.modal_;  
+                        self.getList();                   
+                    }
+                });
+            })
         }
 	},
 	mounted() {

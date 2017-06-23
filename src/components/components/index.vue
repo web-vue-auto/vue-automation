@@ -88,7 +88,7 @@
         title="消息">
         <p>{{ returnMsg.msg1 }}</p>
         <div slot="footer">
-            <Button type="success">进入页面构建(推荐)</Button>
+            <Button type="success" @click="opentemplate">进入页面构建(推荐)</Button>
         </div>
     </Modal>
      <Spin size="large" fix v-if="loading"></Spin>
@@ -253,6 +253,10 @@ export default {
                       this.returnMsg.msg2 = res.data.msg;
                   });
                 },3000)
+            },
+            //进入模板配置
+            opentemplate(){
+              this.$router.push({ name : "vuemodel" , query:{name : this.data.name, objname : this.data.objname, sys :this.model1  }} )
             }
         },
         mounted() {
