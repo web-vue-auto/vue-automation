@@ -8,8 +8,25 @@
             <!-- Logo Starts -->
             <span class="navbar-brand pad8">
               <router-link to="/index">
-                <h2 style="width:230px; height:54px; ">前端基础平台</h2>
-                <!-- <img src="/static/images/logo.png" alt="logo" width="230px" height="54px" > -->
+               <!-- <img src="/static/images/logo.png" alt="logo" width="230px" height="54px" > -->
+               <div  class="logo pull-left">
+                <div class="bg0 pa"></div>
+                  <div class="hx-box pa">
+                      <ul class="pr">
+                          <li class="hx-k1 pa0">
+                              <span></span>
+                          </li>
+                          <li class="hx-k2 pa0">
+                              <span></span>
+                          </li>
+                          <li class="hx-k3 pa0">
+                              <span></span>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+               <h2 style="width:230px; height:54px;margin-left:10px " class="pull-left" >前端基础平台</h2>
+               
               </router-link>
             </span>
             <!-- #Logo Ends -->
@@ -195,11 +212,88 @@ export default {
 }
 .pad8 h2 {
   color: #39f;
-  font-size: 32px;
+  font-size: 29px;
   font-weight: bold;
   line-height: 54px;
 }
 .vueStyle {
   margin-top: 85px !important;
+}
+.pad8 .logo{
+  position: absolute;
+  top: 50%;
+  left: 10%;
+}
+.pad8 .bg0 {
+      width: 50px;
+      height: 50px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: url("/static/images/bg0.png") no-repeat center center;
+      background-size: 150%;
+  }
+.pad8 .pa {
+   position: absolute;
+}
+.pad8 .pa0 {
+  position: absolute;
+}
+.pad8 .pr {
+  position: relative;
+}
+.pad8 .hx-box {
+    top: 50%;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    transform-style: preserve-3d;
+    transform: translate(-50%, -50%) rotateY(75deg);
+}
+
+.pad8 .hx-box ul {
+    width: 50px;
+    height: 50px;
+    transform-style: preserve-3d;
+    animation: hxz 20s linear infinite;
+}
+
+@keyframes hxz {
+    0% {
+        transform: rotateX(0deg);
+    }
+    100% {
+        transform: rotateX(-360deg);
+    }
+}
+
+.pad8 .hx-box ul li {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #5ec0ff;
+    border-radius: 1000px;
+}
+
+.pad8 .hx-box ul li span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: url("/static/images/hx.png") no-repeat center center;
+    background-size: 100% 100%;
+    animation: hx 4s linear infinite;
+}
+
+  @keyframes hx {
+      to {
+          transform: rotate(360deg);
+      }
+  }
+
+.pad8 .hx-k2 {
+    transform: rotateX(60deg) rotateZ(60deg)
+}
+
+.pad8 .hx-k3 {
+    transform: rotateX(-60deg) rotateZ(-60deg)
 }
 </style>

@@ -1,11 +1,11 @@
 <template>
 	<div class="reviewPage">
 		<div class="content">
-			<h4>公告</h4>
+			<h4>公告</h4>	
 		</div>
 	</div>
 </template>
-<style scoped lang="less">
+<style  lang="less">
 	.reviewPage {
 		background: #f7f7f7 url("/static/images/bg04.png");
 	    border-top: solid 1px #fff;
@@ -25,5 +25,6 @@
 			}
 
 	    }
+	
 	}
 </style>
