@@ -8,12 +8,17 @@
 			        </div>
 					<div>
 						<ul>
+							<li v-for="item in list">
+								<span>
+									<Icon type="gear-a"></Icon>
+								</span>
+								<a href="javascript:;">{{item.title}}</a>
+							</li>
+							<!-- <li><span>icon</span><a href="javascript:;">导航1</a></li>
 							<li><span>icon</span><a href="javascript:;">导航1</a></li>
 							<li><span>icon</span><a href="javascript:;">导航1</a></li>
 							<li><span>icon</span><a href="javascript:;">导航1</a></li>
-							<li><span>icon</span><a href="javascript:;">导航1</a></li>
-							<li><span>icon</span><a href="javascript:;">导航1</a></li>
-							<li><span>icon</span><a href="javascript:;">导航1</a></li>
+							<li><span>icon</span><a href="javascript:;">导航1</a></li> -->
 						
 						</ul>
 					</div>											
@@ -106,7 +111,6 @@
 					min-width: 200px;
 					.vuemodel_add {
 						height:45px;
-					/* 	padding:5px 10px 0 0; */
 						.addbtn {
 							width: 190px;
 							margin:5px;
@@ -133,16 +137,23 @@
 							    padding: 0;
 							    display: block;
 							    height: 37px;
-							    line-height: inherit;
+							    line-height: 1.5;
 							    width: 40px;
 							    clear:left;
 							    color: #ccc;
 							    z-index: 9;
+							    i{
+							    	font-size: 20px;
+							    }
 						    }
 						    a {
 						    	color:#666;
-						    	font-size:12px;
+						    	font-size:14px;
+						    	float: left;
 						    	text-decoration: none;
+						    	display: block;
+							    height: 37px;
+							    line-height: 1.5;
 						    }
 						}
 
@@ -180,6 +191,7 @@ export default {
 	 		titlecode:'',//标题
 	 		htmlcode: '',
 	 		htmlcode2: '',
+	 		list:[],
 	 		editorOptionhtml: {
                   tabSize: 4,
                   styleActiveLine: true,
@@ -208,9 +220,24 @@ export default {
 	 	cancel(){
 
 	 	},
-	 	//新建
-	 	oksave(){
-
+	 	// 执行保存
+	 	oksave(){	
+	 		let self = this; 		 
+            this.$http.post("/api/templateAdd",{
+                author: this.$store.getters.username,
+                title: this.titlecode,
+                html: this.htmlcode,
+                html2: this.htmlcode2
+            }).then((res)=>{
+                this.$Modal.success({
+                    title: "提示",
+                    content: res.data.data,
+                    onOk: ()=>{
+                        self.modal_ = !self.modal_;  
+                        self.getList();                   
+                    }
+                });
+            })
 	 	},
 	 	//清空
 	 	closemodal(){
@@ -221,7 +248,16 @@ export default {
         },
         onEditorCodeChangehtml2(newCode) {//代码编辑器---html
             this.htmlcode2 = newCode;
+        },
+        //获取左侧导航栏
+        getList(){
+        	this.$http.post("/api/templateListDrop").then((res)=>{
+	            this.list = res.data.data;
+	        })
         }
-	 }
+	},
+	mounted() {
+		this.getList();
+	}
 }
 </script>
