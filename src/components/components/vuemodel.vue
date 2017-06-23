@@ -14,12 +14,6 @@
 								</span>
 								<a href="javascript:;">{{item.title}}</a>
 							</li>
-							<!-- <li><span>icon</span><a href="javascript:;">导航1</a></li>
-							<li><span>icon</span><a href="javascript:;">导航1</a></li>
-							<li><span>icon</span><a href="javascript:;">导航1</a></li>
-							<li><span>icon</span><a href="javascript:;">导航1</a></li>
-							<li><span>icon</span><a href="javascript:;">导航1</a></li> -->
-						
 						</ul>
 					</div>											
 			</div>

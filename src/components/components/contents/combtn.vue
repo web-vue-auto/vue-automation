@@ -25,18 +25,14 @@
 		data () {
 			return {
 				modal : false,
-				animal: "",
+				animal: 0,
 				list: [],
 				html:""
 			}
 		},
 		methods: {
 			ok () {
-				// this.$http.post('/api/templateCreate').then((res)=>{
-
-				// })
-				console.log(this.list[this.animal].html_code);
-				this.$set(this.$data,"html",this.list[this.animal].html_code);
+				this.$set(this.$data, "html", this.list[this.animal].template_code);
 			},
 			start () {
 				this.modal = !this.modal;
