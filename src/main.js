@@ -46,25 +46,24 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 
 // 路由拦截器
 router.beforeEach((to, from, next) => {
-    let token = localStorage.getItem("token");//获取token
+    let token = localStorage.getItem("token"); //获取token
     if (token) {
         next();
-    }else{
-        switch(to.name)
-        {
-        case "index":
-          next();
-          break;
-        case "joinus":
-          next();
-          break;
-        case "form":
-          next();
-          break;
-        default:
-            next({
-                path:"/joinus"
-            })
+    } else {
+        switch (to.name) {
+            case "index":
+                next();
+                break;
+            case "joinus":
+                next();
+                break;
+            case "form":
+                next();
+                break;
+            default:
+                next({
+                    path: "/joinus"
+                })
         }
     }
 })
@@ -78,12 +77,12 @@ axios.interceptors.response.use(
     },
     error => {
         if (error.response.status == "504") {
-          return MessageBox({title:'提示',message:'服务端错误'})
+            return MessageBox({ title: '提示', message: '服务端错误' })
         }
     });
 
 // 时间格式化方法
-Date.prototype.Format = function (fmt) { //author: meizz
+Date.prototype.Format = function(fmt) { //author: meizz
     var o = {
         "M+": this.getMonth() + 1, //月份
         "d+": this.getDate(), //日
@@ -95,18 +94,18 @@ Date.prototype.Format = function (fmt) { //author: meizz
     };
     if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
     for (var k in o)
-    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
     return fmt;
 }
 
 // 注册全局组件
-Vue.component('combtn',combtn)
+Vue.component('combtn', combtn)
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  store,
-  render: h=> h(App)
+    el: '#app',
+    router,
+    store,
+    render: h => h(App)
 })
 window.HELPER = helper;

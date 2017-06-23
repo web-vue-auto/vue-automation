@@ -11,7 +11,7 @@
 					{{ item.title }}
 				</Radio>
 			</Radio-group>
-		    </Modal>
+		 </Modal>
 	</div>
 </template>
 <style>
@@ -44,6 +44,6 @@
 					this.$set(this.$data,"list",res.data.data);
 				})
 			}
-		}	
+		}
 	}
 </script>

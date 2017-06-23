@@ -21,21 +21,21 @@ var app = express();
 
 //允许跨域访问(待修改)
 app.all('*', function(req, res, next) {
-res.header("Access-Control-Allow-Origin", req.headers.origin);
-res.header('Access-Control-Allow-Credentials', true);//告诉客户端可以在HTTP请求中带上Cookie
-res.header("Access-Control-Allow-Headers", "Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, " +
-    "Last-Modified, Cache-Control, Expires, Content-Type, Content-Language, Cache-Control, X-E4M-With,X_FILENAME");
-res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-res.header("X-Powered-By",' 3.2.1')
-res.header("Content-Type", "application/json;charset=utf-8");
-next();
+    res.header("Access-Control-Allow-Origin", req.headers.origin);
+    res.header('Access-Control-Allow-Credentials', true); //告诉客户端可以在HTTP请求中带上Cookie
+    res.header("Access-Control-Allow-Headers", "Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, " +
+        "Last-Modified, Cache-Control, Expires, Content-Type, Content-Language, Cache-Control, X-E4M-With,X_FILENAME");
+    res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+    res.header("X-Powered-By", ' 3.2.1')
+    res.header("Content-Type", "application/json;charset=utf-8");
+    next();
 });
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ limit:'50mb',extended: true }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 // parse application/json
-app.use(bodyParser.json({limit:'50mb'}))
+app.use(bodyParser.json({ limit: '50mb' }))
 
 app.use(user);
 
@@ -63,6 +63,6 @@ app.use(resouceServer);
 
 app.use(permissions);
 
-app.listen(3000,function () {
-	return console.log("****************** 程序更新 *******************");
+app.listen(3000, function() {
+    return console.log("****************** 程序更新 *******************");
 });
