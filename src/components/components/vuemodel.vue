@@ -4,6 +4,7 @@
 		<div class="vuemodel_main_left">
 			<div width="200px" class="vuemodel_nav">
 			        <div class="vuemodel_add">
+			       		 <Button type="success" icon="plus" class="borderNone pull-right addbtn" @click="saveTemplate">生成模板</Button>
 			        	 <Button type="primary" icon="plus" class="borderNone pull-right addbtn" @click="addHtmlCode">添加</Button>
 			        </div>
 					<div>
@@ -105,9 +106,10 @@
 					min-width: 200px;
 					.vuemodel_add {
 						height:45px;
+						margin-top:5px;
 						.addbtn {
 							width: 190px;
-							margin:5px;
+							margin:2px 5px 5px 0;
 						}
 					}
 					ul {
@@ -117,6 +119,7 @@
 					    width: auto;
 					    top: -1px;
 					    z-index: 199;
+					    margin-top:10px;
 							li {
 							position: relative;
 						    line-height: 38px;
@@ -248,6 +251,10 @@ export default {
         	this.$http.post("/api/templateListDrop").then((res)=>{
 	            this.list = res.data.data;
 	        })
+        },
+        //保存模板
+        saveTemplate(){
+        	
         }
 	},
 	mounted() {
