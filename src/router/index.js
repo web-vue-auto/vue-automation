@@ -28,6 +28,7 @@ import taskannouncement from '../components/task/taskannouncement'
 //components
 import components from '../components/components/comList'
 import vuecli from '../components/components/vuecli'
+import vuemodel from '../components/components/vuemodel'
 import template from '../components/components/contents/template'
 //import step1 from '../components/components/componentsStep1'
 import components_index from '../components/components/index'
@@ -256,6 +257,11 @@ export default new Router({
       path: '/vuecli',
       name: 'vuecli',
       component: vuecli
+    },
+    {
+      path: '/vuemodel',
+      name: 'vuemodel',
+      component: vuemodel
     },
      {
       path: '/review',
