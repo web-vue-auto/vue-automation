@@ -13,6 +13,7 @@ var http = require("http"),
     config = require('./content/config.js'),
     template = require('./content/template.js'),
     fs = require("fs"),
+    dataTime = require('../commen/date.js'),
     spawn = require('child_process').exec;
 app = express();
 
@@ -36,6 +37,37 @@ const createFolder = (to) => { //文件写入
             fs.mkdirSync(p);
         }
     }
+};
+
+const writeFileload = (objname, name) => {
+
+    // 创建文件   process(buffer)
+    fs.open(`/user/maqun/Desktop/${objname}/src/components/${name}.vue`, "w+", (err, fd) => {
+        if (err !== null) {
+            console.error(err);
+            return;
+        }
+        var buf = new Buffer(template.data());
+        fs.write(fd, buf, 0, buf.length, 0);
+    });
+
+    // 写入路由
+    fs.readFile(`/user/maqun/Desktop/${objname}/src/routes.js`, (err, buffer) => {
+        var str = buffer.toString();
+        var a = `import ${name} from 'components/${name}';`;
+        var b = `{
+                path: '/${name}',
+                component: ${name}
+            }`;
+        endStr = SUB(str, b, 0, str.length - 3, str.length - 3, str.length, true);
+        endStr = SUB(endStr, a, 0, 0, 0, endStr.length, false);
+
+        //写入路由信息
+        fs.writeFile(`/user/maqun/Desktop/${objname}/src/routes.js`, new Buffer(endStr), { flag: 'r+', encoding: 'utf8' }, (err, data) => {
+            if (err) throw err;
+        });
+    });
+
 };
 // MD5 加密组件
 var crypto = require('crypto');
@@ -69,41 +101,10 @@ app.post('/api/copyFile', function(req, res) {
                 throw err
             } else {
                 // 写入文件
-                writeFileload();
+                writeFileload(objname, name);
                 return res.status(200).json({ "type": true, "data": `项目创建成功，启动端口号为: ${ssd}` });
             }
         });
-    };
-
-    var writeFileload = () => {
-
-        // 创建文件   process(buffer)
-        fs.open(`/user/maqun/Desktop/${objname}/src/components/${name}.vue`, "w+", (err, fd) => {
-            if (err !== null) {
-                console.error(err);
-                return;
-            }
-            var buf = new Buffer(template.data());
-            fs.write(fd, buf, 0, buf.length, 0);
-        });
-
-        // 写入路由
-        fs.readFile(`/user/maqun/Desktop/${objname}/src/routes.js`, (err, buffer) => {
-            var str = buffer.toString();
-            var a = `import ${name} from 'components/${name}';`;
-            var b = `{
-                path: '/${name}',
-                component: ${name}
-            }`;
-            endStr = SUB(str, b, 0, str.length - 3, str.length - 3, str.length, true);
-            endStr = SUB(endStr, a, 0, 0, 0, endStr.length, false);
-
-            //写入路由信息
-            fs.writeFile(`/user/maqun/Desktop/${objname}/src/routes.js`, new Buffer(endStr), { flag: 'r+', encoding: 'utf8' }, (err, data) => {
-                if (err) throw err;
-            });
-        });
-
     };
     // end
 });
@@ -252,6 +253,28 @@ app.post('/api/templateListDrop', function(req, res) {
     })
 });
 
+//点击生成模板
+app.post('/api/creatTemplate', function(req, res) {
+    var sign = Date.parse(new Date());
+    var name = req.body.name;
+    var auther = req.body.auther;
+    var proname = req.body.proname;
+    var sys = req.body.sysname;
+    var template_code = req.body.template_code;
+    var html_code = req.body.html_code;
+    var time = dataTime();
+    var path = `/user/maqun/Desktop/${proname}`;
+    var str = "INSERT INTO " + connection.dev.call + ".template_list (id,name,auther,proname,sysname,template_code,html_code,time,path) VALUES ('" + sign + "', '" + name + "','" + auther + "','" + proname + "','" + sysname + "','" + template_code + "','" + html_code + "','" + time + "','" + path + "')";
+    connection.query(str, function(err, result) {
+        if (err) {
+            throw err;
+            return res.status(200).json({ "type": "error", "data": "服务端报错！" });
+        } else {
+            // writeFileload(proname, name);
+            return res.status(200).json({ data: "系统添加成功！" });
+        }
+    });
+});
 //
 //
 // // 模块详情
