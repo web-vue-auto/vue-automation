@@ -3,6 +3,9 @@
 	<div class="vuemodel_main">
 		<div class="vuemodel_main_left">
 			<div width="200px" class="vuemodel_nav">
+			        <div class="vuemodel_add">
+			        	 <Button type="primary" icon="plus" class="borderNone pull-right addbtn" @click="addHtmlCode">添加</Button>
+			        </div>
 					<div>
 						<ul>
 							<li><span>icon</span><a href="javascript:;">导航1</a></li>
@@ -18,10 +21,32 @@
 		</div>
 		<div class="vuemodel_main_right">
 			<div class="vuemodel_content">
-				<div class="vuemodel_content_header"></div>
 				<div class="vuemodel_content_main">
 					<!-- 内容 -->
 					<combtn></combtn>
+					 <Modal
+		                v-model="modal_"
+		                title="区块创建"
+		                @on-cancel="closemodal">
+		                <!-- 内容区 -->
+		                <div class="codearea">
+		                     <Input placeholder="标题" class="borderNone" v-model="titlecode"></Input>
+		                </div>		      
+		                <p>编译前 HTML</p>
+		                <div class="">
+		                    <codemirror v-model="htmlcode" :options="editorOptionhtml" ref="codeEditor"  @change="onEditorCodeChangehtml"></codemirror>
+		                </div>
+		                <p>编译后 HTML</p>
+		                <div class="">
+		                    <codemirror v-model="htmlcode2" :options="editorOption" ref="codeEditor"
+		                    @change="onEditorCodeChangehtml2"></codemirror>
+		                </div>
+		                <div class="mar_t20 clearfix">
+		                    <Button type="ghost" class="borderNone pull-right" @click="cancel" style="margin-left:10px;">取消</Button>
+		                    <Button type="success" @click="oksave" class="pull-right borderNone">新建</Button>
+		                </div>
+		                <div slot="footer"></div>
+		            </Modal>
 				</div>
 			</div>	
 		</div>
@@ -62,8 +87,7 @@
 		}
 		.clearfix {
 			clear:both;
-		}
-		
+		}		
 		.vuemodel_main{
 			width: 100%;
 			min-height: 1200px;
@@ -80,6 +104,14 @@
 				.vuemodel_nav {		
 					height: auto;
 					min-width: 200px;
+					.vuemodel_add {
+						height:45px;
+					/* 	padding:5px 10px 0 0; */
+						.addbtn {
+							width: 190px;
+							margin:5px;
+						}
+					}
 					ul {
 						background: #FFFFFF;
 					    float: left;
@@ -123,20 +155,10 @@
 				-ms-flex-order: 2;           
 				-webkit-order: 2;              
 				order: 2;                       			
-				min-height: 1200px;	
-								
+				min-height: 1200px;
 				.vuemodel_content {					
 					width: 1148px;
 				    overflow: hidden;									
-					.vuemodel_content_header{
-						background:#f3f1f8;
-						margin-left: 0px; 
-						margin-right: 0px;				
-						height: 40px;
-					}
-					.vuemodel_content_main{
-						padding:20px;
-					}
 				}
 
 			}
@@ -145,3 +167,61 @@
 		
 	}
 </style>
+<script>
+// require active-line.js
+require('codemirror/addon/selection/active-line.js')
+// autoCloseTags
+require('codemirror/addon/edit/closetag.js')
+import { codemirror } from 'vue-codemirror'
+export default {
+	 data () {
+	 	return {
+	 		modal_:false,
+	 		titlecode:'',//标题
+	 		htmlcode: '',
+	 		htmlcode2: '',
+	 		editorOptionhtml: {
+                  tabSize: 4,
+                  styleActiveLine: true,
+                  lineNumbers: true,
+                  autoCloseTags: true,
+                  line: true,
+                  mode: 'text/html',
+                  theme: 'monokai'
+                },
+                editorOption: {
+                  tabSize: 4,
+                  styleActiveLine: true,
+                  line: true,
+                  mode: 'text/html',
+                  lineWrapping: true,
+                  theme: 'monokai'
+                }
+	 	}
+	 }, 
+	 methods: {
+	 	//模态窗显示
+	 	addHtmlCode(){
+	 		this.modal_ = true;
+	 	},
+	 	//取消
+	 	cancel(){
+
+	 	},
+	 	//新建
+	 	oksave(){
+
+	 	},
+	 	//清空
+	 	closemodal(){
+
+	 	},
+	 	onEditorCodeChangehtml(newCode) {//代码编辑器---html
+                this.htmlcode = newCode;
+        },
+        onEditorCodeChangehtml2(newCode) {//代码编辑器---html
+            this.htmlcode2 = newCode;
+        }
+	 }
+}
+</script>
