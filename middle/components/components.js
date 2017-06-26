@@ -27,18 +27,6 @@ const SUB = (str, content, start, end, start2, end2, bol) => {
         return `${a}${content}${b} `;
     }
 };
-//文件写入
-const createFolder = (to) => {
-    var sep = path.sep;
-    var folders = path.dirname(to).split(sep);
-    var p = '';
-    while (folders.length) {
-        p += folders.shift() + sep;
-        if (!fs.existsSync(p)) {
-            fs.mkdirSync(p);
-        }
-    }
-};
 // 数据解构字符串
 const arrFix = (arr) => {
     let str = "";
