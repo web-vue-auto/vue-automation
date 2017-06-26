@@ -266,17 +266,13 @@ export default {
                 name : this.$route.query.name,
                 proname: this.$route.query.objname,//项目名称
                 sysname: this.$route.query.sys,//系统名称
-                template_code: this.template_code,//源码
-                html_code:this.html_code,
+                template_code: JSON.stringify(this.template_code),//源码
+                html_code:JSON.stringify(this.html_code),
             }).then((res)=>{
-                /*this.$Modal.success({
+                this.$Modal.success({
                     title: "提示",
-                    content: res.data.data,
-                    onOk: ()=>{
-                        self.modal_ = !self.modal_;  
-                        self.getList();                   
-                    }
-                });*/
+                    content: res.data.data                   
+                });
                 console.log(res.data.data)
             })
         }
