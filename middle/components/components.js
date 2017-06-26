@@ -27,7 +27,8 @@ const SUB = (str, content, start, end, start2, end2, bol) => {
         return `${a}${content}${b} `;
     }
 };
-const createFolder = (to) => { //文件写入
+//文件写入
+const createFolder = (to) => {
     var sep = path.sep;
     var folders = path.dirname(to).split(sep);
     var p = '';
@@ -38,7 +39,14 @@ const createFolder = (to) => { //文件写入
         }
     }
 };
-
+// 数据解构字符串
+const arrFix = (arr) => {
+    let str = "";
+    arr.map((item) => {
+        str += item;
+    });
+    return str;
+};
 const writeFileload = (objname, name) => {
 
     // 创建文件   process(buffer)
@@ -257,14 +265,14 @@ app.post('/api/templateListDrop', function(req, res) {
 app.post('/api/creatTemplate', function(req, res) {
     var sign = Date.parse(new Date());
     var name = req.body.name;
-    var auther = req.body.auther;
+    var auther = req.body.author;
     var proname = req.body.proname;
     var sys = req.body.sysname;
-    var template_code = req.body.template_code;
-    var html_code = req.body.html_code;
+    var template_code = arrFix(JSON.parse(req.body.template_code));
+    var html_code = arrFix(JSON.parse(req.body.html_code));
     var time = dataTime();
     var path = `/user/maqun/Desktop/${proname}`;
-    var str = "INSERT INTO " + connection.dev.call + ".template_list (id,name,auther,proname,sysname,template_code,html_code,time,path) VALUES ('" + sign + "', '" + name + "','" + auther + "','" + proname + "','" + sysname + "','" + template_code + "','" + html_code + "','" + time + "','" + path + "')";
+    var str = "INSERT INTO " + connection.dev.call + ".template_list (id,name,auther,proname,sysname,template_code,html_code,date,path) VALUES ('" + sign + "', '" + name + "','" + auther + "','" + proname + "','" + sys + "','" + template_code + "','" + html_code + "','" + time + "','" + path + "')";
     connection.query(str, function(err, result) {
         if (err) {
             throw err;
