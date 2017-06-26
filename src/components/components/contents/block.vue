@@ -190,6 +190,7 @@ export default {
                 this.html_ = false;
                 this.css_ = false;
                 this.title_ = false;
+                this.$emit("status",false);
             },
              oksave () {//新建
 
@@ -224,6 +225,7 @@ export default {
                                 this.html_ = false;
                                 this.css_ = false;
                                 this.title_ = false;
+                                this.$emit('oksave',true);
                             }
                         });
                     })

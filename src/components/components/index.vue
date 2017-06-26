@@ -80,7 +80,7 @@
       <Modal
          v-model="modal"
          title="添加布局">
-         <block v-on:status="getstatus"></block>
+         <block @status="getstatus" @oksave="oksave"></block>
      </Modal>
      <!-- 显示提示框 -->
      <Modal
@@ -212,6 +212,9 @@ export default {
             }
         },
         methods: {
+            oksave() {
+              this.addlocal();
+            },
             getout() {
               this.$set(this.$data,'loading',true);
               setTimeout(()=>{ this.$router.push({ name : "vuecli" }) },1000);
