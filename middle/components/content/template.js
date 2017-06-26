@@ -1,8 +1,8 @@
-module.exports.data = function () {
-  var str = `
+module.exports.data = function(str) {
+    var str = `
   <template>
-    <div>测试demo</div>
+    <div>${str}</div>
   </template>
   `;
-  return str;
-}
+    return str;
+};

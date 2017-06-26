@@ -37,7 +37,7 @@
 			ok () {
 				this.html.push( this.list[this.animal].template_code );
 				this.template.push( this.list[this.animal].html_code );
-				this.$emit('code',this.template,this.html)
+				this.$emit('code',this.template,this.html);
 			},
 			start () {
 				this.modal = !this.modal;

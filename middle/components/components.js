@@ -261,6 +261,7 @@ app.post('/api/creatTemplate', function(req, res) {
     var time = dataTime();
     var path = `/user/maqun/Desktop/${proname}`;
     var str = "INSERT INTO " + connection.dev.call + ".template_list (id,name,auther,proname,sysname,template_code,html_code,date,path) VALUES ('" + sign + "', '" + name + "','" + auther + "','" + proname + "','" + sys + "','" + template_code + "','" + html_code + "','" + time + "','" + path + "')";
+    // 增加数据库记录
     connection.query(str, function(err, result) {
         if (err) {
             throw err;
@@ -270,7 +271,13 @@ app.post('/api/creatTemplate', function(req, res) {
             return res.status(200).json({ data: "系统添加成功！" });
         }
     });
+    // 执行文件写入操作
+    fs.open(`/user/maqun/Desktop/${proname}/src/components/${name}.vue`, 'w+', (err, data) => {
+        var buf = new Buffer(template.data(template_code));
+        fs.write(data, buf, 0, buf.length, 0);
+    });
 });
+
 //
 //
 // // 模块详情
