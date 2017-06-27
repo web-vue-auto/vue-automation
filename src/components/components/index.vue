@@ -40,7 +40,7 @@
                 <Input placeholder="临时服务端口号" style="width: 300px" class="borderNone" v-model="data.ssd"></Input>
            </td>
         </tr>
-        <tr>
+        <!-- <tr>
            <td class="w30 list_msg">框架模板</td>
            <td class="w70">
                 <div>
@@ -50,7 +50,7 @@
                     <span class="addsysoptin" @click="addblock">添加布局</span>
                 </div>
            </td>
-        </tr>
+        </tr> -->
         <tr>
          <td>
             <p v-if="create.status">

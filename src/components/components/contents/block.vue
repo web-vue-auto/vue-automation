@@ -9,7 +9,7 @@
         </div>
         <!-- 内容 -->
         <div class="mar_t15">
-                <Table stripe border :columns="dataTitle" :data="dataSouce"></Table>
+            <Table stripe border :columns="dataTitle" :data="dataSouce" @on-row-click="selected" :highlight-row = "true"></Table>
         </div>
         <div class="text-center mar_t15">
             <Page :total="total" @on-change="changePage" show-total :current="current"></Page>
@@ -79,6 +79,25 @@ export default {
                 current: 1,
                 modal_: false,
                 dataTitle: [
+                   /* {
+                        type: 'radio',                    
+                        align: 'center',
+                        width:80,
+                        key:'',
+                        render: (h,params) =>{
+                          return h('div', [
+                                h('Radio', {
+                                    props: {
+                                        type: 'primary',
+                                        size: 'small'
+                                    },
+                                    style: {
+                                        marginRight: '5px'
+                                    }
+                                })
+                            ]);  
+                        }
+                    },*/
                     {
                         title: '名称',
                         align: "center",
@@ -87,7 +106,7 @@ export default {
                     {
                         title: '最后操作人',
                         align: "center",
-                        width:"180",
+                        width:"100",
                         key: 'name'
                     },
                     {
@@ -192,7 +211,10 @@ export default {
                 this.title_ = false;
                 this.$emit("status",false);
             },
-             oksave () {//新建
+            selected(currentRow,oldCurrentRow){
+                this.$emit("templateCode",currentRow);
+            },
+            oksave () {//新建
 
                 if(this.titlecode == ""){
                     this.title_ = true;

@@ -4,8 +4,10 @@
 		<div class="vuemodel_main_left">
 			<div width="200px" class="vuemodel_nav">
 			        <div class="vuemodel_add">
-			       		 <Button type="success" icon="plus" class="borderNone pull-right addbtn" @click="saveTemplate">生成模板</Button>
+			             <Button type="primary" icon="plus" class="borderNone pull-right addbtn" @click="addblock">框架模板</Button>			       		
 			        	 <Button type="primary" icon="plus" class="borderNone pull-right addbtn" @click="addHtmlCode">添加</Button>
+			        	 <Button type="success" icon="plus" class="borderNone pull-right addbtn" @click="saveTemplate">生成模板</Button>
+
 			        </div>
 					<div>
 						<ul>
@@ -16,7 +18,13 @@
 								<a href="javascript:;">{{item.title}}</a>
 							</li>
 						</ul>
-					</div>											
+					</div>
+					<!-- 添加布局区块弹窗 -->
+				    <Modal
+				         v-model="modal"
+				         title="添加布局">
+				         <block @status="getstatus" @oksave="oksave" @templateCode="templateCode"></block>
+				    </Modal>											
 			</div>
 		</div>
 		<div class="vuemodel_main_right">
@@ -180,11 +188,15 @@
 require('codemirror/addon/selection/active-line.js')
 // autoCloseTags
 require('codemirror/addon/edit/closetag.js')
-import { codemirror } from 'vue-codemirror'
+import { codemirror } from 'vue-codemirror';
+import block from './contents/block.vue';
 export default {
 	 data () {
 	 	return {
+	 		modal:false,
 	 		modal_:false,
+	 		localData:[],
+	 		localValue:"",
 	 		titlecode:'',//标题
 	 		htmlcode: '',
 	 		htmlcode2: '',
@@ -215,6 +227,24 @@ export default {
 	 	addHtmlCode(){
 	 		this.modal_ = true;
 	 	},
+	 	addblock() {          
+            this.modal = !this.modal;
+        },
+        getstatus(a) {
+            this.modal = a;
+        },
+        //获取选中模板
+        templateCode(code){
+        	console.log(code)
+        },
+        oksave() {
+              this.addlocal();
+        },
+        addlocal () {
+            this.$http.post("/api/blockListDrop").then((res)=>{
+                this.$set(this.$data,'localData',res.data.data);
+            });
+        },
 	 	//取消
 	 	cancel(){
 
@@ -279,6 +309,10 @@ export default {
 	},
 	mounted() {
 		this.getList();
-	}
+		this.addlocal();
+	},
+	components: {
+        block
+    }
 }
 </script>

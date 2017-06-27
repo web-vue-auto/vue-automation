@@ -93,11 +93,30 @@ export default {
                     title: '操作',
                     key: 'action',
                     align:'center',
-                    width:150,                        
-                    render (row, column, index) {
+                    width:150,  
+                    render: (h,params) =>{
+                        return h('div', [
+                                h('Button', {
+                                    props: {
+                                        type: 'primary',
+                                        size: 'small'
+                                    },
+                                    style: {
+                                        marginRight: '5px'
+                                    },
+                                    on: {
+                                        click: () => {                       
+                                            this.checkbtn(params.row)
+                                        }
+                                    }
+                                }, '编辑'),
+                        
+                        ]);                      
+                    /*render (row, column, index) {
                         return `<i-button type="primary" class="borderNone" size="small" @click="checkbtn(${index})">编辑</i-button>`;
-                    }
+                    }*/
                 }
+            }
             ],
 	        tableData: [ ],
 	        multipleSelection: [],
@@ -109,10 +128,10 @@ export default {
 	    		tree
 	    },
     methods:{
-    	checkbtn(index){//选择table
+    	checkbtn(row){//选择table
     		// 清空数组
     		if (this.showCheck) this.choosearr = "";
-    		else this.choosearr = this.tableData[index].token;
+    		else this.choosearr = row.token;
     		// 控制编辑树的显隐
     		this.showCheck = !this.showCheck;
     		this.hideCheck = !this.hideCheck;
