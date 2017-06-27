@@ -199,7 +199,7 @@ app.post('/api/blockList', function(req, res) {
     var pageNum = (req.body.current - 1) * 10;
     var current = req.body.current
     var pageTotal = '';
-    var str = "select id,name,title from " + connection.dev.call + ".block where title like '%" + searchValue + "%'";
+    var str = "select id,name,title,cast(html_code as char) as html_code,cast(css_code as char) as css_code from " + connection.dev.call + ".block where title like '%" + searchValue + "%'";
     connection.query(str, function(err, result) {
         if (err) {
             throw err;
