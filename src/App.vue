@@ -220,9 +220,9 @@ export default {
   margin-top: 85px !important;
 }
 .pad8 .logo{
-  position: absolute;
-  top: 50%;
-  left: 10%;
+    width: 60px;
+    height: 54px;
+    position: relative;
 }
 .pad8 .bg0 {
       width: 50px;
