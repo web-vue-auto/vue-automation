@@ -1,6 +1,6 @@
 <template>
   <div class="mart-85">
-    <child></child>
+    <child>3333</child>
   </div>
 </template>
 <style lang="less">
@@ -13,6 +13,7 @@ import Vue from 'vue';
 Vue.component('child', {
   render (creatElement) {
   	return creatElement(
+  		"h2",
   		this.$slots.default
   	)
   }
