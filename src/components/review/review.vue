@@ -659,6 +659,22 @@
 </template>
 <style  lang="less">
 @import "../../assets/css/reviews.css";
+    .eslintTable {
+        td {
+            border: 1px solid #ddd !important;
+            a{
+                height: 45px !important;
+                line-height: 45px !important;
+                display: block;
+                span {
+                    color: #39f !important;
+                }
+            }
+        }
+        .font10 {
+            color: #39f !important;
+        }
+    }
 	.reviewPage {
 		background: #f7f7f7 url("/static/images/bg04.png");
 	    border-top: solid 1px #fff;
