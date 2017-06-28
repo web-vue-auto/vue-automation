@@ -160,7 +160,6 @@ export default {
         name: 'components',
         data () {
             return {
-                currentView: bt,
                 returnMsg: {
                   status: false,
                   msg1: ""
