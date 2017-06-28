@@ -691,6 +691,7 @@
 			border-radius: 5px;
 			h2 {
 				text-align: center;
+                font-weight: bold;
 			}
 			.eslintTable {
 				text-align: center;
