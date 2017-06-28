@@ -657,7 +657,7 @@
         </div>
     </div>
 </template>
-<style  lang="less">
+<style lang="less" scoped>
 @import "../../assets/css/reviews.css";
     .eslintTable {
         td {
