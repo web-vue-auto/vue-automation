@@ -1,21 +1,3 @@
-<template>
-	<div>
-		<div v-for="item in html" :key="item">
-			<div v-html="item"></div>
-		</div>
-		 <Button type="ghost" class="combtn" @click="start">选择</Button>
-		 <Modal
-		        v-model="modal"
-		        title="模块列表"
-		        @on-ok="ok">
-			<Radio-group v-model="animal">
-				<Radio :label="index" v-for="(item,index) in list" :key="item.id">
-					{{ item.title }}
-				</Radio>
-			</Radio-group>
-		 </Modal>
-	</div>
-</template>
 <style scoped>
 .combtn {
 	width: 100%;
@@ -24,6 +6,22 @@
 <script>
 	export default {
 		name:"combtn",
+		template: `<div>
+			<div v-for="item in html" :key="item">
+				<div v-html="item"></div>
+			</div>
+			 <Button type="ghost" class="combtn" @click="start">选择</Button>
+			 <Modal
+			        v-model="modal"
+			        title="模块列表"
+			        @on-ok="ok">
+				<Radio-group v-model="animal">
+					<Radio :label="index" v-for="(item,index) in list" :key="item.id">
+						{{ item.title }}
+					</Radio>
+				</Radio-group>
+			 </Modal>
+		</div>`,
 		data () {
 			return {
 				modal: false,
