@@ -46,7 +46,7 @@ import bbsworkdetails from '../components/bbs/bbs_work_details'
 import bbslife from '../components/bbs/bbs_life'
 import bbslifedetails from '../components/bbs/bbs_life_details'
 //review
-import review from "../components/review/review.vue"
+import review from '../components/review/review.vue'
 
 //module
 import module from '../components/module/module'
@@ -54,6 +54,12 @@ import module from '../components/module/module'
 import permission from '../components/management/common/permission'
 //404
 import errorpage from '../components/management/common/errorpage'
+
+//rules
+import rules from '../components/rules/rules'
+import uipage from '../components/rules/content/uipage'
+import historypage from '../components/rules/content/historypage'
+import codepage from '../components/rules/content/codepage'
 
 Vue.use(Router)
 
@@ -267,6 +273,26 @@ export default new Router({
       path: '/review',
       name: 'review',
       component: review
+    },
+     {
+      path: '/rules',
+      name: 'rules',
+      component: rules
+    },
+     {
+      path: '/codepage',
+      name: 'codepage',
+      component: codepage
+    },
+     {
+      path: '/historypage',
+      name: 'historypage',
+      component: historypage
+    },
+     {
+      path: '/uipage',
+      name: 'uipage',
+      component: uipage
     },
     // {
     //   path: '/step1',

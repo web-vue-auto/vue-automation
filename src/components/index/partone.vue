@@ -47,18 +47,18 @@
 						content : "相信我们-会给你最好的服务",
 						rout:'cdn'
 					},
-					/*{
-						imgUrl : "/static/images/Untitled6.png",
+					{
+						imgUrl : "/static/images/bg_06.png",
 						title : "task",
 						content : "你-就是我们要找的赏金猎人",
 						rout:'taskwelcome'
-					},*/
-					{
+					},
+					/*{
 						imgUrl : "/static/images/bg_06.png",
 						title : "reviews",
 						content : "严谨，整洁就是你的代名词",
 						rout:'review'
-					},
+					},*/
 					{
 						imgUrl : "/static/images/bg_07.png",
 						title : "NodeJs",
@@ -81,7 +81,7 @@
 						imgUrl : "/static/images/bg_10.png",
 						title : "Rules",
 						content : "正所谓国有国法-家有家规",
-						rout:'joinus'
+						rout:'rules'
 					},
 					{
 						imgUrl : "/static/images/bg_11.png",
