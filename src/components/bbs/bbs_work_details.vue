@@ -91,7 +91,7 @@
 </template>
 <style lang="less">
 	.work_details{
-		margin:15px;
+		margin:70px 15px 15px 15px;
 		min-height: 500px;
 		.pull-left{float: left;}
 		.pull-right{float: right;}
