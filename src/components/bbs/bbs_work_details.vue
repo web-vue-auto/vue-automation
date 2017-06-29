@@ -216,6 +216,8 @@
 					.itemRightContent{
 						padding:8px;
 						min-height: 220px;
+						max-width: 1030px;
+						overflow-x: scroll;
 					}
 					.psth{
 						background-color: #FFF4DD;
