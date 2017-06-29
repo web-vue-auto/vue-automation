@@ -31,7 +31,7 @@
 			<div class="vuemodel_content">
 				<div class="vuemodel_content_main">
 					<!-- 内容 -->
-					<combtn @code = "code"></combtn>
+					 <component :is="item" @code="code" v-for="item in View_code" :key="item"></component>
 					 <Modal
 		                v-model="modal_"
 		                title="区块创建"
@@ -191,8 +191,11 @@ require('codemirror/addon/edit/closetag.js')
 import { codemirror } from 'vue-codemirror';
 import block from './contents/block.vue';
 export default {
+	 name: "vuemodel",
 	 data () {
 	 	return {
+	 		// 创建区块模板
+	 		View_code: ["combtn"],
 	 		modal:false,
 	 		modal_:false,
 	 		localData:[],
@@ -287,6 +290,12 @@ export default {
         code(template,html){
         	this.template_code = template;
         	this.html_code = html;
+        	template.forEach( element => {
+        		let Home = {
+        			template: element.toString()
+        		};
+        		this.View_code.push(Home);
+        	});
         },
         //保存模板
         saveTemplate(){
