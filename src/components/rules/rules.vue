@@ -32,7 +32,7 @@
                 items : [
                     {
                         title : "UI规范",
-                        content:'内容',
+                        content:'UI设计规范',
                         rout:'uipage'
                     },
                     {
@@ -43,7 +43,7 @@
                     {
                         title : "历史记录",
                         content:'历史记录存档',
-                        rout:'historypage'
+                        rout:'permission'
                     }
                 ]
             }

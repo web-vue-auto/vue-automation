@@ -69,13 +69,13 @@
 						imgUrl : "/static/images/bg_08.png",
 						title : "components",
 						content : "为了你-我们会做的更好",
-						rout:'components_index'
+						rout:/*'components_index'*/'permission'
 					},
 					{
 						imgUrl : "/static/images/bg_09.png",
 						title : "Knowledge",
 						content : "知识需要一点一滴的沉淀",
-						rout:'joinus'
+						rout:/*'joinus'*/'permission'
 					},
 					{
 						imgUrl : "/static/images/bg_10.png",
@@ -87,7 +87,7 @@
 						imgUrl : "/static/images/bg_11.png",
 						title : "Foot Step",
 						content : "只有足记才能坚定我们的成长",
-						rout:'joinus'
+						rout:/*'joinus'*/'permission'
 					},
 					{
 						imgUrl : "/static/images/bg_12.png",
