@@ -288,8 +288,10 @@ export default {
 	        })
         },
         code(template,html){
+        	// 初始化
         	this.template_code = template;
         	this.html_code = html;
+        	console.log(template);
         	template.forEach( element => {
         		let Home = {
         			template: element.toString()
