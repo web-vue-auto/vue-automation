@@ -90,9 +90,17 @@
 </div>
 </template>
 <style lang="less">
+	* {
+	    word-wrap: break-word;
+	}
+	td, th {
+	    display: table-cell;
+	    vertical-align: inherit;
+	}
 	.work_details{
 		margin:70px 15px 15px 15px;
 		min-height: 500px;
+		overflow: hidden; 
 		.pull-left{float: left;}
 		.pull-right{float: right;}
 		.borRight{border-right: 1px solid #CCC;}
@@ -210,14 +218,16 @@
 					    .sendTime{
 					    	color:#999;
 					    	margin-left: 5px;
-					    	i{font-style:normal;color:#666}
+					    	i{
+					    		font-style:normal;color:#666
+					    	}
 					    }
 					}
 					.itemRightContent{
 						padding:8px;
 						min-height: 220px;
-						max-width: 1030px;
-						overflow-x: scroll;
+						width: 1030px;
+					    white-space: initial;
 					}
 					.psth{
 						background-color: #FFF4DD;

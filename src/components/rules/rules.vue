@@ -104,9 +104,9 @@
 
 .service .item-box {
     position: relative;
-    width: 274px;
+    width: 280px;
     height: 186px;
-    padding: 20px 0 0 60px;
+    padding: 20px 15px 10px 60px;
     background: url(/static/images/kuang.png) 0 0 no-repeat;
     color: #00a0ff;
     zoom: 1
@@ -209,7 +209,10 @@
 .service h4 {
     line-height: 27px;
     font-size: 14px;
-    color: #666
+    max-height: 100px;
+    color: #666;   
+    overflow: hidden;
+    margin-left:2px;
 }
 
 .service a:hover h3,
