@@ -41,9 +41,9 @@
                         rout:'codepage'
                     },
                     {
-                        title : "历史记录",
-                        content:'历史记录存档',
-                        rout:'permission'
+                        title : "操作手册",
+                        content:'操作手册',
+                        rout:'operatingGuide'
                     }
                 ]
             }

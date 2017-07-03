@@ -58,8 +58,11 @@ import errorpage from '../components/management/common/errorpage'
 //rules
 import rules from '../components/rules/rules'
 import uipage from '../components/rules/content/uipage'
-import historypage from '../components/rules/content/historypage'
+import operatingGuide from '../components/rules/content/operatingGuide'
 import codepage from '../components/rules/content/codepage'
+
+//footstep
+import footstep from '../components/footstep/footstep'
 
 Vue.use(Router)
 
@@ -285,9 +288,14 @@ export default new Router({
       component: codepage
     },
      {
-      path: '/historypage',
-      name: 'historypage',
-      component: historypage
+      path: '/operatingGuide',
+      name: 'operatingGuide',
+      component: operatingGuide
+    },
+     {
+      path: '/footstep',
+      name: 'footstep',
+      component: footstep
     },
      {
       path: '/uipage',

@@ -87,7 +87,7 @@
 						imgUrl : "/static/images/bg_11.png",
 						title : "Foot Step",
 						content : "只有足记才能坚定我们的成长",
-						rout:/*'joinus'*/'permission'
+						rout:/*'permission'*/'footstep'
 					},
 					{
 						imgUrl : "/static/images/bg_12.png",
