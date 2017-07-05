@@ -39,7 +39,7 @@ app.post('/api/fileUploadSave',function(req, res, next){
 	var auther = req.body.auther;
 	var sign = Date.parse(new Date());
 	var time = dataTime();
-	connection.query("INSERT INTO "+connection.dev.call+".ManageList (Date,Auther,Title,id,content,type) VALUES ('"+time+"','"+auther+"','"+title+"','"+sign+"','"+contArr.url+"','"+contArr.type+"')", function(err, result) {
+	connection.query("INSERT INTO "+connection.dev.call+".knowledgeList(Date,Auther,Title,id,content,type) VALUES ('"+time+"','"+auther+"','"+title+"','"+sign+"','"+contArr.url+"','"+contArr.type+"')", function(err, result) {
 		if (err) {
 			throw err;
 		}else{

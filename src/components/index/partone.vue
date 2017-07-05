@@ -75,7 +75,7 @@
 						imgUrl : "/static/images/bg_09.png",
 						title : "Knowledge",
 						content : "知识需要一点一滴的沉淀",
-						rout:/*'joinus'*/'permission'
+						rout:/*'permission'*/'knowledge'
 					},
 					{
 						imgUrl : "/static/images/bg_10.png",

@@ -64,6 +64,10 @@ import codepage from '../components/rules/content/codepage'
 //footstep
 import footstep from '../components/footstep/footstep'
 
+//knowledge
+import knowledge from '../components/knowledge/knowledge'
+import createknowledgepage from '../components/knowledge/createknowledgepage'
+
 Vue.use(Router)
 
 
@@ -301,6 +305,16 @@ export default new Router({
       path: '/uipage',
       name: 'uipage',
       component: uipage
+    },
+    {
+      path: '/knowledge',
+      name: 'knowledge',
+      component: knowledge
+    },
+    {
+      path: '/createknowledgepage',
+      name: 'createknowledgepage',
+      component: createknowledgepage
     },
     // {
     //   path: '/step1',

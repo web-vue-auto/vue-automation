@@ -17,6 +17,7 @@ var grop = require('./commen/grouptype.js');
 var resouceServer = require('./resouce/resouce-server.js');
 var nodeServer = require('./node/node-server.js');
 var permissions = require('./commen/permissions.js');
+var knowledgeList = require('./knowledge/knowledge.js');
 var app = express();
 
 //允许跨域访问(待修改)
@@ -62,6 +63,8 @@ app.use(option);
 app.use(resouceServer);
 
 app.use(permissions);
+
+app.use(knowledgeList);
 
 app.listen(3000, function() {
     return console.log("****************** 程序更新 *******************");

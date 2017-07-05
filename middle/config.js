@@ -1,10 +1,10 @@
 // 数据库连接模块
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-    host     : 'localhost',
+    host     : '192.168.145.159',
     user     : 'root',
     password : 'root',
-    database : 'VuePlatom'
+    database : 'VuePlatomTest'
 });
 
 connection = mysql.createConnection(connection.config);
@@ -14,5 +14,5 @@ connection.connect();
 module.exports = connection;
 
 module.exports.dev = {
-    call : 'VuePlatom' //VuePlatom
+    call : 'VuePlatomTest' //VuePlatom
 };
