@@ -239,14 +239,29 @@ app.post('/api/templateAdd', function(req, res) {
 
 //模块列表下拉列表
 app.post('/api/templateListDrop', function(req, res) {
-    connection.query("select id, title,cast(template_code as char) as template_code,cast(html_code as char) as html_code,author from " + connection.dev.call + ".template", function(err, result) {
-        if (err) {
-            throw err;
-            return res.status(200).json({ "type": "error", "data": "服务端报错！" });
-        } else {
-            return res.status(200).json({ data: result });
-        }
-    })
+    p1();
+
+    function p1() {
+        let p = new Promise((resolve, reject) => {
+            //做一些异步操作
+            connection.query("select id, title,cast(template_code as char) as template_code,cast(html_code as char) as html_code,author from " + connection.dev.call + ".template", function(err, result) {
+                if (err) {
+                    throw err;
+                    return res.status(200).json({ "type": "error", "data": "服务端报错！" });
+                } else {
+                    resolve(result);
+                }
+            });
+        });
+        return p;
+    };
+
+    p1().then((data) => {
+        connection.query("select id,name,title,cast(html_code as char) as html_code,cast(css_code as char) as css_code from " + connection.dev.call + ".block", function(err, res0) {
+            if (err) throw err;
+            else return res.status(200).json({ "type": "success", "data": data.concat(res0) });
+        })
+    });
 });
 
 //点击生成模板

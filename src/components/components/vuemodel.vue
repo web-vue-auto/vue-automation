@@ -32,7 +32,7 @@
 			<div class="vuemodel_content">
 				<div class="vuemodel_content_main">
 					<!-- 内容 -->
-					 <component :is="item" @code="code" v-for="item in View_code" :key="item"></component>
+					 <component :is="View_code[0]" @code="code"></component>
 					 <Modal
 		                v-model="modal_"
 		                title="区块创建"
@@ -281,15 +281,6 @@ export default {
         	// 初始化
         	this.template_code = template;
         	this.html_code = html;
-        	console.log(template);
-
-        	// template.forEach( element => {
-        	// 	let Home = {
-        	// 		template: element.toString()
-        	// 	};
-        	// 	// this.View_code = [];
-        	// 	this.View_code.push(Home);
-        	// });
         },
         //保存模板
         saveTemplate(){
