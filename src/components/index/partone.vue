@@ -69,7 +69,7 @@
 						imgUrl : "/static/images/bg_08.png",
 						title : "components",
 						content : "为了你-我们会做的更好",
-						rout:/*'components_index'*/'permission'
+						rout:'components_index'/*'permission'*/
 					},
 					{
 						imgUrl : "/static/images/bg_09.png",

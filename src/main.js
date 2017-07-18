@@ -101,6 +101,7 @@ Date.prototype.Format = function(fmt) { //author: meizz
 // 注册全局组件
 Vue.component('combtn', combtn)
 
+
 /* eslint-disable no-new */
 new Vue({
     el: '#app',
