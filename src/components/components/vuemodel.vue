@@ -32,7 +32,7 @@
 			<div class="vuemodel_content">
 				<div class="vuemodel_content_main">
 					<!-- 内容 -->
-					 <component :is="View_code[0]" @code="code"></component>
+					 <component :is="item" @code="code" v-for="item in View_code" :key="item"></component>
 					 <Modal
 		                v-model="modal_"
 		                title="区块创建"
@@ -277,10 +277,11 @@ export default {
         onEditorCodeChangehtml2(newCode) {//代码编辑器---html
             this.htmlcode2 = newCode;
         },
-        code(template,html){
+        code(code){
         	// 初始化
-        	this.template_code = template;
-        	this.html_code = html;
+        	if (code) {
+        		this.View_code.push("combtn");
+        	}
         },
         //保存模板
         saveTemplate(){

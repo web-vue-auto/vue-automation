@@ -32,9 +32,14 @@
 		},
 		methods: {
 			ok () {
-				this.html.push( this.list[this.animal].html_code );
-				this.template.push( this.list[this.animal].html_code );
-				this.$emit('code',this.template,this.html);
+				// this.template.push( this.list[this.animal].html_code );
+				// 区分区块与模块
+				if (this.list[this.animal].html_code.indexOf("combtn") >= 0 ) {
+					this.$emit('code',true);
+				}else {
+					this.$emit('code',false);
+					this.html.push( this.list[this.animal].html_code );
+				}
 			},
 			start () {
 				this.modal = !this.modal;
