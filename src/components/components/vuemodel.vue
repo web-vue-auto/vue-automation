@@ -4,12 +4,13 @@
 		<div class="vuemodel_main_left">
 			<div width="200px" class="vuemodel_nav">
 			        <div class="vuemodel_add">
-			             <Button type="primary" icon="plus" class="borderNone pull-right addbtn" @click="addblock">框架模板</Button>			       		
-			        	 <Button type="primary" icon="plus" class="borderNone pull-right addbtn" @click="addHtmlCode">添加</Button>
+			             <Button type="primary" icon="plus" class="borderNone pull-right addbtn" @click="addblock">添加区块</Button>			       		
+			        	 <Button type="primary" icon="plus" class="borderNone pull-right addbtn" @click="addHtmlCode">添加模块</Button>
 			        	 <Button type="success" icon="plus" class="borderNone pull-right addbtn" @click="saveTemplate">生成模板</Button>
 
 			        </div>
-					<div>
+			        <!-- 取消左边栏 -->
+					<!-- <div>
 						<ul>
 							<li v-for="item in list">
 								<span>
@@ -18,7 +19,7 @@
 								<a href="javascript:;">{{item.title}}</a>
 							</li>
 						</ul>
-					</div>
+					</div> -->
 					<!-- 添加布局区块弹窗 -->
 				    <Modal
 				         v-model="modal"
@@ -38,13 +39,13 @@
 		                @on-cancel="closemodal">
 		                <!-- 内容区 -->
 		                <div class="codearea">
-		                     <Input placeholder="标题" class="borderNone" v-model="titlecode"></Input>
+		                     <Input placeholder="组件名称" class="borderNone" v-model="titlecode"></Input>
 		                </div>		      
-		                <p>编译前 HTML</p>
+		                <p>组件Name</p>
 		                <div class="">
 		                    <codemirror v-model="htmlcode" :options="editorOptionhtml" ref="codeEditor"  @change="onEditorCodeChangehtml"></codemirror>
 		                </div>
-		                <p>编译后 HTML</p>
+		                <p>组件基本配置</p>
 		                <div class="">
 		                    <codemirror v-model="htmlcode2" :options="editorOption" ref="codeEditor"
 		                    @change="onEditorCodeChangehtml2"></codemirror>
@@ -240,21 +241,16 @@ export default {
         templateCode(code){
         	console.log(code)
         },
-        oksave() {
-              this.addlocal();
-        },
-        addlocal () {
-            this.$http.post("/api/blockListDrop").then((res)=>{
-                this.$set(this.$data,'localData',res.data.data);
-            });
-        },
 	 	//取消
 	 	cancel(){
-
+	 		this.modal_ = !this.modal_;
+	 		this.titlecode = "";
+	 		this.htmlcode = "";
+	 		this.htmlcode2 = "";
 	 	},
 	 	// 执行保存
 	 	oksave(){	
-	 		let self = this; 		 
+	 		let self = this; 	
             this.$http.post("/api/templateAdd",{
                 author: this.$store.getters.username,
                 title: this.titlecode,
@@ -281,23 +277,19 @@ export default {
         onEditorCodeChangehtml2(newCode) {//代码编辑器---html
             this.htmlcode2 = newCode;
         },
-        //获取左侧导航栏
-        getList(){
-        	this.$http.post("/api/templateListDrop").then((res)=>{
-	            this.list = res.data.data;
-	        })
-        },
         code(template,html){
         	// 初始化
         	this.template_code = template;
         	this.html_code = html;
         	console.log(template);
-        	template.forEach( element => {
-        		let Home = {
-        			template: element.toString()
-        		};
-        		this.View_code.push(Home);
-        	});
+
+        	// template.forEach( element => {
+        	// 	let Home = {
+        	// 		template: element.toString()
+        	// 	};
+        	// 	// this.View_code = [];
+        	// 	this.View_code.push(Home);
+        	// });
         },
         //保存模板
         saveTemplate(){
@@ -317,10 +309,6 @@ export default {
                 console.log(res.data.data)
             })
         }
-	},
-	mounted() {
-		this.getList();
-		this.addlocal();
 	},
 	components: {
         block

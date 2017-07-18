@@ -224,10 +224,6 @@ export default {
                     this.html_ = true;
                     return;
                 }
-                if(this.csscode == ""){
-                    this.css_ = true;
-                    return;
-                }
                 else{
 
                     // 执行保存
