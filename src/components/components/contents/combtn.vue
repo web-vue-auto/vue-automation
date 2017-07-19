@@ -11,6 +11,9 @@
 			left: -16px;
 			border-bottom: 1px solid #e9eaec;
 		}
+		button {
+			margin-top: 20px;
+		}
 		p{
 			font-size: 14px;
 			color: #1c2438;
@@ -27,7 +30,6 @@
 	}
 }
 </style>
-<!-- <div v-html="item"></div> -->
 <script>
 	export default {
 		name:"combtn",
@@ -43,6 +45,11 @@
 						{{ item.title }}
 					</Radio>
 				</Radio-group>
+				<div class="config">
+					<p>区块添加</p>
+					<div class="line"></div>
+					<Button type="info" @click="block">创建新区块</Button>
+				</div>
 				<div class="config">
 					<p>属性配置</p>
 					<div class="line"></div>
@@ -69,14 +76,12 @@
 		},
 		methods: {
 			ok () {
-				// this.template.push( this.list[this.animal].html_code );
-				// 区分区块与模块
-				if (this.list[this.animal].html_code.indexOf("combtn") >= 0 ) {
-					this.$emit('code',true);
-				}else {
-					this.$emit('code',false);
-					this.html.push( this.list[this.animal].html_code );
-				}
+				this.$emit('code',false);
+				this.html.push( this.list[this.animal].html_code );
+			},
+			block () {
+				this.$emit('code',true);
+				this.modal = !this.modal;
 			},
 			start () {
 				this.modal = !this.modal;

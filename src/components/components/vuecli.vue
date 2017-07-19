@@ -29,12 +29,12 @@
 </style>
 <script>
 export default {
-	data () {
-		return {
-			offsetX: 0,
+  data () {
+    return {
+      offsetX: 0,
       offsetY: 75
-		}
-	},
+    }
+  },
   mounted () {
       let this_ = this;
 
