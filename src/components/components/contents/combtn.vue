@@ -35,7 +35,7 @@
 		name:"combtn",
 		template: `<div class="combtn-all" :style="{width: width + 'px',height: height + 'px'}">
 			 <component :is="item" v-for="item in html" :key="item"></component>
-			 <Button type="ghost" class="combtn" @click="start">选择</Button>
+			 <Button type="ghost" class="combtn" @click="start" v-show="status">选择</Button>
 			 <Modal
 			        v-model="modal"
 			        title="模块选择"
@@ -63,6 +63,7 @@
 				</div>
 			 </Modal>
 		</div>`,
+		props: ['status'],
 		data () {
 			return {
 				modal: false,

@@ -4,7 +4,7 @@
 		<div class="vuemodel_main_left">
 			<div width="200px" class="vuemodel_nav">
 			        <div class="vuemodel_add">
-			             <Button type="primary" icon="plus" class="borderNone pull-right addbtn" @click="addblock">添加区块</Button>			       		
+			             <Button type="warning" icon="plus" class="borderNone pull-right addbtn" @click="addblock">{{ message }}</Button>			       		
 			        	 <Button type="primary" icon="plus" class="borderNone pull-right addbtn" @click="addHtmlCode">添加模块</Button>
 			        	 <Button type="success" icon="plus" class="borderNone pull-right addbtn" @click="saveTemplate">生成模板</Button>
 
@@ -32,7 +32,7 @@
 			<div class="vuemodel_content">
 				<div class="vuemodel_content_main">
 					<!-- 内容 -->
-					 <component :is="item" @code="code" v-for="item in View_code" :key="item"></component>
+					 <component :status="choose" :is="item" @code="code" v-for="item in View_code" :key="item"></component>
 					 <Modal
 		                v-model="modal_"
 		                title="区块创建"
@@ -199,7 +199,9 @@ export default {
 	 		View_code: ["combtn"],
 	 		modal:false,
 	 		modal_:false,
+	 		message: "页面预览",
 	 		localData:[],
+	 		choose: true,
 	 		localValue:"",
 	 		titlecode:'',//标题
 	 		htmlcode: '',
@@ -232,14 +234,16 @@ export default {
 	 		this.modal_ = true;
 	 	},
 	 	addblock() {          
-            this.modal = !this.modal;
+            this.choose = !this.choose;
+            if (this.choose) this.message = "页面预览";
+            else this.message = "关闭预览";
         },
         getstatus(a) {
             this.modal = a;
         },
         //获取选中模板
         templateCode(code){
-        	console.log(code)
+
         },
 	 	//取消
 	 	cancel(){
