@@ -186,8 +186,8 @@
 					z-index: 9999;
 					overflow-y: scroll;
 					/* 动画 */
-					-webkit-animation:fadeInRight 1s .2s ease both;
-					-moz-animation:fadeInRight 1s .2s ease both;}
+					-webkit-animation:fadeInRight 2s .3s ease both;
+					-moz-animation:fadeInRight 2s .3s ease both;}
 					@-webkit-keyframes fadeInRight{
 					0%{opacity:0;
 					-webkit-transform:translateX(20px)}
