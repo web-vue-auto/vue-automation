@@ -30,7 +30,7 @@
 		</div>
 		<div class="vuemodel_main_right">
 			<div class="vuemodel_content">
-				<div class="vuemodel_content_main">
+				<div class="vuemodel_content_main clearfix">
 					<!-- 内容 -->
 					 <component :status="choose" :is="item" @code="code" v-for="item in View_code" :key="item"></component>
 					 <Modal

@@ -1,4 +1,9 @@
 <style lang="less" scoped>
+.combtn-all {
+	float: left;
+	display: inline-block;
+	width: 100%;
+}
 .combtn {
 	width: 100%;
 }
@@ -33,7 +38,7 @@
 <script>
 	export default {
 		name:"combtn",
-		template: `<div class="combtn-all" :style="{width: width + 'px',height: height + 'px'}">
+		template: `<div class="combtn-all" :style="{width: width,height: height}">
 			 <component :is="item" v-for="item in html" :key="item"></component>
 			 <Button type="ghost" class="combtn" @click="start" v-show="status">选择</Button>
 			 <Modal
