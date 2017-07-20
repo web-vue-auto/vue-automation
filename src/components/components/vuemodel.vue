@@ -19,24 +19,17 @@
 								<a href="javascript:;">{{item.title}}</a>
 							</li>
 						</ul>
-					</div> -->
-					<!-- 添加布局区块弹窗 -->
-				    <Modal
-				         v-model="modal"
-				         title="添加布局">
-				         <block @status="getstatus" @oksave="oksave" @templateCode="templateCode"></block>
-				    </Modal>											
+					</div> -->										
 			</div>
 		</div>
 		<div class="vuemodel_main_right">
 			<div class="vuemodel_content">
 				<div class="vuemodel_content_main clearfix">
 					<!-- 内容 -->
-					 <component :status="choose" :is="item" @code="code" v-for="item in View_code" :key="item"></component>
+					 <component  @barstatus="barstatus" :status="choose" :is="item" @code="code" v-for="item in View_code" :key="item"></component>
 					 <Modal
 		                v-model="modal_"
-		                title="区块创建"
-		                @on-cancel="closemodal">
+		                title="区块创建">
 		                <!-- 内容区 -->
 		                <div class="codearea">
 		                     <Input placeholder="组件名称" class="borderNone" v-model="titlecode"></Input>
@@ -57,7 +50,11 @@
 		                <div slot="footer"></div>
 		            </Modal>
 				</div>
-			</div>	
+			</div>
+			<!-- 侧边栏 -->
+			<div class="nav-bar" v-if="showBar">
+				侧边栏
+			</div>
 		</div>
 	</div>
 		
@@ -173,11 +170,36 @@
 				-webkit-order: 2;              
 				order: 2;                       			
 				min-height: 1200px;
+				position: relative;
 				.vuemodel_content {					
 					width: 1148px;
 				    overflow: hidden;									
 				}
-
+				.nav-bar {
+					position: absolute;
+					background: #fff;
+					width: 350px;
+					right: 75px;
+					top: 7px;
+					height: 600px;
+					border-radius: 6px;
+					z-index: 9999;
+					overflow-y: scroll;
+					/* 动画 */
+					-webkit-animation:fadeInRight 1s .2s ease both;
+					-moz-animation:fadeInRight 1s .2s ease both;}
+					@-webkit-keyframes fadeInRight{
+					0%{opacity:0;
+					-webkit-transform:translateX(20px)}
+					100%{opacity:1;
+					-webkit-transform:translateX(0)}
+					}
+					@-moz-keyframes fadeInRight{
+					0%{opacity:0;
+					-moz-transform:translateX(20px)}
+					100%{opacity:1;
+					-moz-transform:translateX(0)}		
+				}
 			}
 		}
 		
@@ -197,6 +219,7 @@ export default {
 	 	return {
 	 		// 创建区块模板
 	 		View_code: ["combtn"],
+	 		showBar:false,
 	 		modal:false,
 	 		modal_:false,
 	 		message: "页面预览",
@@ -229,6 +252,9 @@ export default {
 	 	}
 	 }, 
 	 methods: {
+	 	barstatus (val) {
+	 		this.showBar = val;
+	 	},
 	 	//模态窗显示
 	 	addHtmlCode(){
 	 		this.modal_ = true;
@@ -240,10 +266,6 @@ export default {
         },
         getstatus(a) {
             this.modal = a;
-        },
-        //获取选中模板
-        templateCode(code){
-
         },
 	 	//取消
 	 	cancel(){
@@ -270,10 +292,6 @@ export default {
                     }
                 });
             })
-	 	},
-	 	//清空
-	 	closemodal(){
-
 	 	},
 	 	onEditorCodeChangehtml(newCode) {//代码编辑器---html
                 this.htmlcode = newCode;

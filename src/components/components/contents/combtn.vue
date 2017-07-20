@@ -44,7 +44,8 @@
 			 <Modal
 			        v-model="modal"
 			        title="模块选择"
-			        @on-ok="ok">
+			        @on-ok="ok"
+			        @on-cancel="cancel">
 				<Radio-group v-model="animal">
 					<Radio :label="index" v-for="(item,index) in list" :key="item.id">
 						{{ item.title }}
@@ -89,8 +90,12 @@
 				this.$emit('code',true);
 				this.modal = !this.modal;
 			},
+			cancel () {
+				this.$emit('barstatus',false);
+			},
 			start () {
 				this.modal = !this.modal;
+				this.$emit('barstatus',true);
 				this.$http.post('/api/templateListDrop').then((res)=>{
 					this.$set(this.$data,"list",res.data.data);
 				})
